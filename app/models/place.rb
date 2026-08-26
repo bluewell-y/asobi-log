@@ -15,5 +15,14 @@ class Place < ApplicationRecord
   }
 
   validates :name, presence: true
-  validates :address, presence: true  
+  validates :address, presence: true
+
+  scope :keyword_search, ->(keyword) {
+    where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?
+  }
+  scope :by_category, ->(category) { where(category: category) if category.present? }
+  scope :by_indoor_outdoor, ->(io) { where(indoor_outdoor: io) if io.present? }
+  scope :for_age, ->(age) {
+    where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
+  }
 end

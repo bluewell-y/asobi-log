@@ -5,6 +5,10 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.all
+                    .keyword_search(params[:keyword])
+                    .by_category(params[:category])
+                    .by_indoor_outdoor(params[:indoor_outdoor])
+                    .for_age(params[:age])
   end
 
   def show

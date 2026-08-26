@@ -1,4 +1,31 @@
 <h1>遊び場一覧</h1>
+<%= form_with url: places_path, method: :get do |f| %>
+  <div>
+    <%= f.label :keyword, "キーワード" %>
+    <%= f.text_field :keyword, value: params[:keyword] %>
+  </div>
+
+  <div>
+    <%= f.label :category, "カテゴリ" %>
+    <%= f.select :category,
+          [["すべて", ""], ["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"], ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]],
+          selected: params[:category] %>
+  </div>
+
+  <div>
+    <%= f.label :indoor_outdoor, "屋内/屋外" %>
+    <%= f.select :indoor_outdoor,
+          [["すべて", ""], ["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]],
+          selected: params[:indoor_outdoor] %>
+  </div>
+
+  <div>
+    <%= f.label :age, "対象年齢" %>
+    <%= f.number_field :age, value: params[:age] %>
+  </div>
+
+  <%= f.submit "検索する" %>
+<% end %>
 
 <% if logged_in? %>
   <%= link_to "遊び場を登録する", new_place_path %>
