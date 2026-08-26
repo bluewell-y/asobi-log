@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :places
+  resources :users, only: [:new, :create]
+  resource :session, only: [:new, :create, :destroy]
   root "places#index"
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

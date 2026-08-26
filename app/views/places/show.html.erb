@@ -7,8 +7,11 @@
 <p>料金：<%= @place.price %></p>
 <p>営業時間：<%= @place.business_hours %></p>
 <p>説明：<%= @place.description %></p>
+<p>登録者：<%= @place.user.name %></p>
 
-<%= link_to "編集する", edit_place_path(@place) %>
-<%= button_to "削除する", place_path(@place), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+<% if logged_in? && @place.user == current_user %>
+  <%= link_to "編集する", edit_place_path(@place) %>
+  <%= button_to "削除する", place_path(@place), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+<% end %>
 
 <%= link_to "一覧に戻る", places_path %>

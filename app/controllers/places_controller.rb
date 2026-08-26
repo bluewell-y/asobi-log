@@ -1,5 +1,7 @@
 class PlacesController < ApplicationController
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_place, only: [:show, :edit, :update, :destroy]
+  before_action :require_owner, only: [:edit, :update, :destroy]
 
   def index
     @places = Place.all
@@ -13,7 +15,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = Place.new(place_params)
+    @place = current_user.places.new(place_params)
     if @place.save
       redirect_to @place, notice: "遊び場を登録しました"
     else
@@ -41,6 +43,12 @@ class PlacesController < ApplicationController
 
   def set_place
     @place = Place.find(params[:id])
+  end
+
+  def require_owner
+    unless @place.user == current_user
+      redirect_to places_path, alert: "この操作を行う権限がありません"
+    end
   end
 
   def place_params
