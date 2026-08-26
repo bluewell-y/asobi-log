@@ -1,4 +1,5 @@
 class Place < ApplicationRecord
+  belongs_to :user
   enum :category, {
     park: 0,             # 公園
     indoor_facility: 1,  # 室内施設
