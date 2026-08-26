@@ -1,0 +1,12 @@
+<h1>遊び場一覧</h1>
+
+<%= link_to "遊び場を登録する", new_place_path %>
+
+<ul>
+  <% @places.each do |place| %>
+    <li>
+      <%= link_to place.name, place_path(place) %>
+      （<%= place.category %>）
+    </li>
+  <% end %>
+</ul>

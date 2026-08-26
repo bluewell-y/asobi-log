@@ -1,0 +1,14 @@
+<h1><%= @place.name %></h1>
+
+<p>住所：<%= @place.address %></p>
+<p>カテゴリ：<%= @place.category %></p>
+<p>屋内/屋外：<%= @place.indoor_outdoor %></p>
+<p>対象年齢：<%= @place.min_age %>歳〜<%= @place.max_age %>歳</p>
+<p>料金：<%= @place.price %></p>
+<p>営業時間：<%= @place.business_hours %></p>
+<p>説明：<%= @place.description %></p>
+
+<%= link_to "編集する", edit_place_path(@place) %>
+<%= button_to "削除する", place_path(@place), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+
+<%= link_to "一覧に戻る", places_path %>

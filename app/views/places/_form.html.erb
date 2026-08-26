@@ -1,0 +1,59 @@
+<%= form_with model: @place do |f| %>
+  <% if @place.errors.any? %>
+    <div>
+      <p><%= @place.errors.count %>件のエラーがあります</p>
+      <ul>
+        <% @place.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "遊び場名" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明" %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :category, "カテゴリ" %>
+    <%= f.select :category, [["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"], ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]] %>
+  </div>
+
+  <div>
+    <%= f.label :indoor_outdoor, "屋内/屋外" %>
+    <%= f.select :indoor_outdoor, [["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]] %>
+  </div>
+
+  <div>
+    <%= f.label :min_age, "対象年齢（下限）" %>
+    <%= f.number_field :min_age %>
+  </div>
+
+  <div>
+    <%= f.label :max_age, "対象年齢（上限）" %>
+    <%= f.number_field :max_age %>
+  </div>
+
+  <div>
+    <%= f.label :price, "料金" %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :business_hours, "営業時間" %>
+    <%= f.text_field :business_hours %>
+  </div>
+
+  <%= f.submit "保存する" %>
+<% end %>
