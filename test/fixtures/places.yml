@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  address: MyString
+  category: 1
+  indoor_outdoor: 1
+  min_age: 1
+  max_age: 1
+  price: MyString
+  business_hours: MyString
+
+two:
+  name: MyString
+  description: MyText
+  address: MyString
+  category: 1
+  indoor_outdoor: 1
+  min_age: 1
+  max_age: 1
+  price: MyString
+  business_hours: MyString
