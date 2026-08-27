@@ -1,0 +1,9 @@
+<h1>行った場所一覧</h1>
+
+<ul>
+  <% @visited_places.each do |place| %>
+    <li><%= link_to place.name, place_path(place) %></li>
+  <% end %>
+</ul>
+
+<%= link_to "遊び場一覧に戻る", places_path %>

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :places do
     resource :favorite, only: [:create, :destroy]
+    resource :visit, only: [:create, :destroy]
   end
   resources :favorites, only: [:index]
+  resources :visits, only: [:index]
   resources :users, only: [:new, :create]
   resource :session, only: [:new, :create, :destroy]
   root "places#index"

@@ -1,6 +1,7 @@
 class Place < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
+  has_many :visits, dependent: :destroy
 
   enum :category, {
     park: 0,             # 公園

@@ -15,6 +15,12 @@
   <% else %>
     <%= button_to "お気に入りに追加", place_favorite_path(@place), method: :post %>
   <% end %>
+
+  <% if current_user.visits.exists?(place: @place) %>
+    <%= button_to "「行った」を解除", place_visit_path(@place), method: :delete %>
+  <% else %>
+    <%= button_to "行った！", place_visit_path(@place), method: :post %>
+  <% end %>
 <% end %>
 
 <% if logged_in? && @place.user == current_user %>
