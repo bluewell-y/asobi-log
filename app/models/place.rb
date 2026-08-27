@@ -1,5 +1,7 @@
 class Place < ApplicationRecord
   belongs_to :user
+  has_many :favorites, dependent: :destroy
+
   enum :category, {
     park: 0,             # 公園
     indoor_facility: 1,  # 室内施設

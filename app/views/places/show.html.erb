@@ -9,6 +9,14 @@
 <p>説明：<%= @place.description %></p>
 <p>登録者：<%= @place.user.name %></p>
 
+<% if logged_in? %>
+  <% if current_user.favorites.exists?(place: @place) %>
+    <%= button_to "お気に入り解除", place_favorite_path(@place), method: :delete %>
+  <% else %>
+    <%= button_to "お気に入りに追加", place_favorite_path(@place), method: :post %>
+  <% end %>
+<% end %>
+
 <% if logged_in? && @place.user == current_user %>
   <%= link_to "編集する", edit_place_path(@place) %>
   <%= button_to "削除する", place_path(@place), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>

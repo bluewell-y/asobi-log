@@ -15,6 +15,7 @@
       <%= link_to "あそびログ", root_path %>
       <% if logged_in? %>
         <span><%= current_user.name %>さん</span>
+        <%= link_to "お気に入り一覧", favorites_path %>
         <%= button_to "ログアウト", session_path, method: :delete %>
       <% else %>
         <%= link_to "ログイン", new_session_path %>
