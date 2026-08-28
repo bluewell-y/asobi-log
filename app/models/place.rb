@@ -1,4 +1,18 @@
 class Place < ApplicationRecord
+  CATEGORY_LABELS = {
+    "park" => "公園",
+    "indoor_facility" => "室内施設",
+    "museum" => "博物館・科学館",
+    "aquarium_zoo" => "水族館・動物園",
+    "other" => "その他"
+  }.freeze
+
+  INDOOR_OUTDOOR_LABELS = {
+    "indoor" => "屋内",
+    "outdoor" => "屋外",
+    "both" => "両方"
+  }.freeze
+
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
@@ -28,4 +42,12 @@ class Place < ApplicationRecord
   scope :for_age, ->(age) {
     where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
   }
+  
+  def category_label
+    CATEGORY_LABELS[category]
+  end
+
+  def indoor_outdoor_label
+    INDOOR_OUTDOOR_LABELS[indoor_outdoor]
+  end
 end

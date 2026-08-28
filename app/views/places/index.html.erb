@@ -35,7 +35,7 @@
   <% @places.each do |place| %>
     <li>
       <%= link_to place.name, place_path(place) %>
-      （<%= place.category %>）
+      （<%= place.category_label %>）
     </li>
   <% end %>
 </ul>
