@@ -13,3 +13,142 @@
  *= require_tree .
  *= require_self
  */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 24px;
+  margin-top: 24px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-top: 32px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+
+nav a:first-child {
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  margin-right: auto;
+}
+
+nav a {
+  color: #4a7dfc;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav span {
+  color: #666;
+}
+
+.notice, .alert {
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.notice {
+  background: #e6f4ea;
+  color: #1e7b34;
+  border: 1px solid #b7e1c4;
+}
+
+.alert {
+  background: #fdecea;
+  color: #c0392b;
+  border: 1px solid #f5c6cb;
+}
+
+input[type="submit"], button {
+  background: #4a7dfc;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover, button:hover {
+  background: #3763d6;
+}
+
+.button_to {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+form div {
+  margin-bottom: 12px;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+ul li a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ul li a:hover {
+  color: #4a7dfc;
+}
