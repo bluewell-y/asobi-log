@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :favorites, only: [:index]
   resources :visits, only: [:index]
   resources :users, only: [:new, :create]
+  get "mypage", to: "users#mypage"
+  get "mypage/edit", to: "users#edit", as: "edit_mypage"
+  patch "mypage", to: "users#update"
+  delete "mypage", to: "users#destroy"
+  
   resource :session, only: [:new, :create, :destroy]
   root "places#index"
   

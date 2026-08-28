@@ -1,0 +1,44 @@
+<h1>プロフィール編集</h1>
+
+<%= form_with model: @user, url: mypage_path, method: :patch do |f| %>
+  <% if @user.errors.any? %>
+    <div>
+      <p><%= @user.errors.count %>件のエラーがあります</p>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "名前" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メールアドレス" %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "新しいパスワード（変更する場合のみ入力）" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "新しいパスワード（確認）" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<%= link_to "マイページに戻る", mypage_path %>
+
+<hr>
+
+<h2>退会</h2>
+<p>退会すると、登録した遊び場・お気に入り・行った場所の記録もすべて削除されます。</p>
+<%= button_to "退会する", mypage_path, method: :delete, data: { turbo_confirm: "本当に退会しますか？この操作は取り消せません。" } %>

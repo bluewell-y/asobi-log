@@ -1,0 +1,19 @@
+<h1>マイページ</h1>
+
+<p>名前：<%= current_user.name %></p>
+<p>メールアドレス：<%= current_user.email %></p>
+<%= link_to "プロフィールを編集する", edit_mypage_path %>
+
+<h2>サマリー</h2>
+<ul>
+  <li>登録した遊び場：<%= @places.count %>件</li>
+  <li>お気に入り：<%= @favorite_count %>件（<%= link_to "一覧を見る", favorites_path %>）</li>
+  <li>行った場所：<%= @visit_count %>件（<%= link_to "一覧を見る", visits_path %>）</li>
+</ul>
+
+<h2>自分が登録した遊び場</h2>
+<ul>
+  <% @places.each do |place| %>
+    <li><%= link_to place.name, place_path(place) %></li>
+  <% end %>
+</ul>
