@@ -1,23 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  address: MyString
-  category: 1
+  name: みどり公園
+  description: 広い芝生の公園
+  address: 東京都渋谷区1-1
+  category: 0
   indoor_outdoor: 1
-  min_age: 1
-  max_age: 1
-  price: MyString
-  business_hours: MyString
+  min_age: 0
+  max_age: 12
+  price: 無料
+  business_hours: 24時間
+  user: one
 
 two:
-  name: MyString
-  description: MyText
-  address: MyString
+  name: キッズパーク
+  description: 室内の遊び場
+  address: 東京都新宿区2-2
   category: 1
-  indoor_outdoor: 1
+  indoor_outdoor: 0
   min_age: 1
-  max_age: 1
-  price: MyString
-  business_hours: MyString
+  max_age: 6
+  price: 500円
+  business_hours: 9:00-18:00
+  user: two
