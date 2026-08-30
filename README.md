@@ -62,7 +62,7 @@
 
 ## ER図
 
-![ER図](docs/images/er-diagram.png?v=2)
+![ER図](docs/images/er-diagram.png)
 
 編集用のソースは [`docs/images/er-diagram.drawio`](docs/images/er-diagram.drawio)（Draw.io / diagrams.net）です。
 
@@ -140,7 +140,7 @@
 
 ## 画面遷移図
 
-![画面遷移図](docs/images/screen-flow.png?v=2)
+![画面遷移図](docs/images/screen-flow.png)
 
 編集用のソースは [`docs/images/screen-flow.drawio`](docs/images/screen-flow.drawio)（Draw.io / diagrams.net）です。
 
