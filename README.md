@@ -178,7 +178,7 @@ bin/rails server
 
 - 開発の初期段階でmainブランチに直接コミットを重ねてしまい、機能単位で履歴を追いにくくなりました。途中で環境・リポジトリを作り直し、機能ごとにブランチを切ってPull Requestでマージする運用に切り替えました。
 - Railsのルーティングで`resource`（単数形）と`resources`（複数形）を書き間違え、`No route matches ... missing required keys: [:id]`のようなエラーに複数回遭遇しました。単数リソース（ログインやお気に入りのトグルなど、IDを持たない操作）には`resource`を使う、という使い分けを実践を通じて身につけました。
-- Renderのデプロイ設定で、Start Commandのデフォルトが`RACK_ENV`未設定時にdevelopmentモードで起動してしまう内容だったため、本番用に明示的に`-e production`を指定し、マイグレーションも起動前に実行するよう修正しました。
+- Renderのデプロイ設定で、Start Commandのデフォルトが`RAILS_ENV`未設定時にdevelopmentモードで起動してしまう内容だったため、本番用に明示的に`-e production`を指定し、マイグレーションも起動前に実行するよう修正しました。
 - Rails 7.1とminitest 6系の間に互換性の問題があり、`bin/rails test`実行時にエラーが出ました。Gemfileでminitestを5系に固定することで解決しました。
 - テスト実行時、Rails生成時のデフォルトfixtureが後から追加した制約（emailの一意性、user_idの必須化）に対応しておらず、エラーになりました。DB制約を追加した際は関連するテストデータも見直す必要があると学びました。
 
