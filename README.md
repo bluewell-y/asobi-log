@@ -191,7 +191,7 @@ bin/rails server
 
 ## URL
 
-- 本番環境：https://asobi-log.onrender.com（Basic認証あり）
+- 本番環境（Basic認証あり）：https://asobi-log.onrender.com
 - リポジトリ：https://github.com/bluewell-y/asobi-log
 
 ## 動作確認用アカウント
