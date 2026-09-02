@@ -1,5 +1,5 @@
 <h1>遊び場一覧</h1>
-<%= form_with url: places_path, method: :get do |f| %>
+<%= form_with url: places_path, method: :get, class: "search-form" do |f| %>
   <div>
     <%= f.label :keyword, "キーワード" %>
     <%= f.text_field :keyword, value: params[:keyword] %>
