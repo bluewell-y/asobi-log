@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
       @user = current_user
-      render :edit, status: :unprocessable_
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :em_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
   def user_update_params
