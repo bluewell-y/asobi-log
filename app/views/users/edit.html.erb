@@ -5,7 +5,7 @@
     <div>
       <p><%= @user.errors.count %>件のエラーがあります</p>
       <ul>
-        <% @user.errors.full_messages.each do |message| %>
+        <% error_messages_in_form_order(@user, %i[name email password password_confirmation]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
