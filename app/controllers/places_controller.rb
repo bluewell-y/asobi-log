@@ -9,6 +9,10 @@ class PlacesController < ApplicationController
                     .by_category(params[:category])
                     .by_indoor_outdoor(params[:indoor_outdoor])
                     .for_age(params[:age])
+
+    # 一覧カードに表示する状態マーク用（未ログイン時は空）
+    @favorite_place_ids = logged_in? ? current_user.favorite_places.ids : []
+    @visited_place_ids  = logged_in? ? current_user.visited_places.ids : []
   end
 
   def show

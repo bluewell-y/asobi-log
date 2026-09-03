@@ -34,6 +34,16 @@
 <ul>
   <% @places.each do |place| %>
     <li>
+      <% if @favorite_place_ids.include?(place.id) || @visited_place_ids.include?(place.id) %>
+        <span class="card-marks">
+          <% if @favorite_place_ids.include?(place.id) %>
+            <span class="card-mark card-mark--fav" title="お気に入り"><%= place_status_icon(:favorite) %></span>
+          <% end %>
+          <% if @visited_place_ids.include?(place.id) %>
+            <span class="card-mark" title="行ったことがある">👟</span>
+          <% end %>
+        </span>
+      <% end %>
       <%= link_to place.name, place_path(place) %>
       （<%= place.category_label %>）
     </li>
