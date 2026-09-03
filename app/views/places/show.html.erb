@@ -24,8 +24,8 @@
 <% end %>
 
 <% if logged_in? && @place.user == current_user %>
-  <%= link_to "編集する", edit_place_path(@place) %>
-  <%= button_to "削除する", place_path(@place), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+  <%= link_to "編集する", edit_place_path(@place), class: "btn btn--owner" %>
+  <%= button_to "削除する", place_path(@place), method: :delete, class: "btn--owner", data: { turbo_confirm: "本当に削除しますか？" } %>
 <% end %>
 
-<%= link_to "一覧に戻る", places_path %>
+<%= link_to "一覧に戻る", places_path, class: "btn" %>
