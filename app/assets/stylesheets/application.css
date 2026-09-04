@@ -285,6 +285,16 @@ ul li {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* 一覧サムネイル：画像がない時のカードの高さに収まる程度の小さめサイズにする */
+.place-thumb img {
+  display: block;
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;                                     
+  border-radius: 14px;                                                                      
+  margin: 6px 0;
+}
+
 /* 一覧カード右上の状態マーク（お気に入り／行った）。
    float にして、遊び場名が長いときはマークを避けて折り返す。 */
 .card-marks {
@@ -375,4 +385,32 @@ hr {
     max-width: none;
     width: 100%;
   }
+}
+
+ /* トップ画像（メイン写真）：大きめの横長サイズで表示 */
+.place-cover-image {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: 260px;
+  object-fit: cover;                                       
+  border-radius: 16px;                                                                        
+  margin: 12px 0 8px;
+}
+
+/* 参考画像のギャラリー：小さな正方形サムネイルを横並びに。多い時は横スクロールできる */
+.place-gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 16px;                                     
+} 
+
+.place-gallery-img {
+  flex: 0 0 auto;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
 }

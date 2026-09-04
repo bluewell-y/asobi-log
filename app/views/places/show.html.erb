@@ -1,4 +1,15 @@
 <h1><%= @place.name %></h1>
+<% if @place.cover_image.attached? %>
+  <%= image_tag @place.cover_image, class: "place-cover-image" %>
+<% end %>
+
+<% if @place.sub_images.attached? %>
+  <div class="place-gallery">
+    <% @place.sub_images.each do |sub_image| %>
+      <%= image_tag sub_image, class: "place-gallery-img" %>
+    <% end %>
+  </div>
+<% end %>
 
 <p>住所：<%= @place.address %></p>
 <p>カテゴリ：<%= @place.category_label %></p>
