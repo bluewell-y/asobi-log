@@ -35,7 +35,7 @@ class PlacesController < ApplicationController
   end
 
   def update
-    if @place.update(place_params)
+    if @place.update(place_params_for_update)
       redirect_to @place, notice: "遊び場を更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -61,5 +61,14 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(:name, :cover_image, :description, :address, :category, :indoor_outdoor, :min_age, :max_age, :price, :business_hours, sub_images: [])
+  end
+  
+  # 編集時、トップ画像・参考画像を選び直さなかった場合は、既存の添付を消さないようにする
+  def place_params_for_update
+    permitted = place_params
+    permitted.delete(:cover_image) if permitted[:cover_image].blank?
+    permitted[:sub_images]&.reject!(&:blank?)
+    permitted.delete(:sub_images) if permitted[:sub_images].blank?
+    permitted                                              
   end
 end
