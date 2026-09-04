@@ -45,6 +45,9 @@
         </span>
       <% end %>
       <%= link_to place.name, place_path(place) %>
+      <% if place.cover_image.attached? %>
+        <div class="place-thumb"><%= image_tag place.cover_image %></div>
+      <% end %>
       （<%= place.category_label %>）
     </li>
   <% end %>

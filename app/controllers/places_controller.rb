@@ -4,7 +4,7 @@ class PlacesController < ApplicationController
   before_action :require_owner, only: [:edit, :update, :destroy]
 
   def index
-    @places = Place.all
+    @places = Place.with_attached_cover_image
                     .keyword_search(params[:keyword])
                     .by_category(params[:category])
                     .by_indoor_outdoor(params[:indoor_outdoor])
