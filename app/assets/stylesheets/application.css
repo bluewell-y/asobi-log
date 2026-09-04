@@ -13,103 +13,199 @@
  *= require_tree .
  *= require_self
  */
+
+/*
+ * デザインテーマ：水族館パステル
+ * 淡い水色〜ラベンダーの配色に、丸みのあるフォームと大きめの角丸で
+ * 「屋内施設・乳幼児連れでも安心」なやわらかい印象をつくる。
+ */
+:root {
+  --alog-bg-start: #eaf7fb;
+  --alog-bg-end: #f5eefb;
+  --alog-surface: #ffffff;
+  --alog-ink: #2c4a55;
+  --alog-muted: #6e8e96;
+  --alog-accent: #2e97ac; /* リンク・見出し用（白地でも読める濃さ） */
+  --alog-accent-bg: #4fb8c8; /* ボタン等の塗り用 */
+  --alog-accent2: #e28fc2; /* サブアクセント（ピンク） */
+  --alog-radius: 28px;
+  --alog-radius-sm: 999px;
+  --alog-shadow: 0 10px 24px -14px rgba(44, 74, 85, 0.35);
+  --alog-font-head: "Mochiy Pop One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --alog-font-body: "M PLUS Rounded 1c", "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
-  max-width: 800px;
+  font-family: var(--alog-font-body);
+  max-width: 880px;
   margin: 0 auto;
-  padding: 0 16px;
-  color: #333;
-  line-height: 1.6;
+  padding: 0 20px 60px;
+  color: var(--alog-ink);
+  line-height: 1.7;
+  background: linear-gradient(160deg, var(--alog-bg-start) 0%, var(--alog-bg-end) 100%) fixed;
+  min-height: 100vh;
 }
 
 h1 {
-  font-size: 24px;
-  margin-top: 24px;
+  font-family: var(--alog-font-head);
+  font-size: 22px;
+  font-weight: 400;
+  margin-top: 28px;
+  color: var(--alog-ink);
 }
 
 h2 {
-  font-size: 18px;
+  font-family: var(--alog-font-head);
+  font-size: 16px;
+  font-weight: 400;
   margin-top: 32px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 4px;
+  border-bottom: 2px solid #d9edf2;
+  padding-bottom: 6px;
+  color: var(--alog-ink);
 }
 
+a {
+  color: var(--alog-accent);
+}
+
+/* ---- ヘッダーナビ ---- */
 nav {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 16px;
+  padding: 18px 4px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #d9edf2;
 }
 
 nav a:first-child {
-  font-weight: bold;
-  font-size: 18px;
+  font-family: var(--alog-font-head);
+  font-weight: 400;
+  font-size: 19px;
   text-decoration: none;
-  color: #333;
+  color: var(--alog-accent);
   margin-right: auto;
 }
 
 nav a {
-  color: #4a7dfc;
+  color: var(--alog-muted);
   text-decoration: none;
+  font-size: 14px;
 }
 
 nav a:hover {
+  color: var(--alog-accent);
   text-decoration: underline;
 }
 
 nav span {
-  color: #666;
+  color: var(--alog-muted);
+  font-size: 14px;
 }
 
-.notice, .alert {
-  padding: 12px 16px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+nav .button_to {
+  margin: 0;
+}
+
+nav .button_to button {
+  background: transparent;
+  color: var(--alog-muted);
+  border: 1px solid #cfe3e8;
+  padding: 6px 16px;
+  font-size: 13px;
+}
+
+nav .button_to button:hover {
+  background: #f0fafc;
+  color: var(--alog-accent);
+  border-color: var(--alog-accent-bg);
+}
+
+/* ---- notice / alert ---- */
+.notice,
+.alert {
+  font-family: var(--alog-font-body);
+  padding: 12px 18px;
+  border-radius: var(--alog-radius-sm);
+  margin-bottom: 18px;
+  font-size: 14px;
 }
 
 .notice {
-  background: #e6f4ea;
-  color: #1e7b34;
-  border: 1px solid #b7e1c4;
+  background: #e3f6ef;
+  color: #1f7a5c;
+  border: 1px solid #bfe7d5;
 }
 
 .alert {
-  background: #fdecea;
-  color: #c0392b;
-  border: 1px solid #f5c6cb;
+  background: #fdeaf3;
+  color: #a23e76;
+  border: 1px solid #f3c1de;
 }
 
-input[type="submit"], button {
-  background: #4a7dfc;
-  color: white;
+/* ---- ボタン ---- */
+input[type="submit"],
+button,
+.btn {
+  font-family: var(--alog-font-body);
+  background: var(--alog-accent-bg);
+  color: #ffffff;
   border: none;
-  padding: 8px 20px;
-  border-radius: 6px;
+  padding: 9px 22px;
+  border-radius: var(--alog-radius-sm);
   font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
 }
 
-input[type="submit"]:hover, button:hover {
-  background: #3763d6;
+input[type="submit"]:hover,
+button:hover,
+.btn:hover {
+  background: #3aa1b2;
+}
+
+/* リンク（a要素）をボタンと同じ見た目にする */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 8px 8px 0;
+}
+
+.btn:hover {
+  color: #ffffff;
+}
+
+/* 登録者だけに表示される「編集する」「削除する」用の色（コーラル） */
+.btn--owner {
+  background: #e56b52;
+}
+
+.btn--owner:hover {
+  background: #cf5540;
 }
 
 .button_to {
   display: inline-block;
-  margin-right: 8px;
+  margin: 0 8px 8px 0;
 }
 
+/* ---- フォーム全般 ---- */
 form div {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 form label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 4px;
-  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: var(--alog-muted);
 }
 
 input[type="text"],
@@ -120,35 +216,163 @@ select,
 textarea {
   width: 100%;
   max-width: 400px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 9px 14px;
+  border: 1px solid #cfe3e8;
+  border-radius: 16px;
   font-size: 14px;
+  font-family: inherit;
+  color: var(--alog-ink);
+  background: var(--alog-surface);
   box-sizing: border-box;
 }
 
-textarea {
-  min-height: 80px;
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--alog-accent-bg);
+  box-shadow: 0 0 0 3px rgba(79, 184, 200, 0.25);
 }
 
+textarea {
+  min-height: 90px;
+  border-radius: 16px;
+}
+
+/* 遊び場検索フォームだけは、フィルターバーのように横並びにする */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  background: var(--alog-surface);
+  border-radius: var(--alog-radius);
+  padding: 18px 20px;
+  box-shadow: var(--alog-shadow);
+  margin-bottom: 20px;
+}
+
+.search-form div {
+  margin-bottom: 0;
+}
+
+.search-form input,
+.search-form select {
+  max-width: 200px;
+}
+
+.search-form input[type="submit"] {
+  margin-bottom: 1px;
+}
+
+/* ---- 一覧（遊び場・お気に入り・行った場所・登録した遊び場） ---- */
 ul {
   list-style: none;
   padding: 0;
+  /* 意匠帖の見本と同じく、カードを標準で2列に並べる */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
 ul li {
-  padding: 12px;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  background: var(--alog-surface);
+  padding: 16px 20px;
+  border: none;
+  /* 意匠帖「02 公園日和」と同じ、四隅そろった角丸の枠 */
+  border-radius: 24px;
+  box-shadow: var(--alog-shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 一覧カード右上の状態マーク（お気に入り／行った）。
+   float にして、遊び場名が長いときはマークを避けて折り返す。 */
+.card-marks {
+  float: right;
+  margin: 2px 0 4px 12px;
+  display: flex;
+  gap: 8px;
+  color: var(--alog-accent);
+}
+
+.card-mark {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  font-size: 17px;
+}
+
+/* お気に入りのハートだけピンク */
+.card-mark--fav {
+  color: var(--alog-accent2);
 }
 
 ul li a {
-  color: #333;
+  font-family: var(--alog-font-head);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--alog-ink);
   text-decoration: none;
-  font-weight: bold;
 }
 
 ul li a:hover {
-  color: #4a7dfc;
+  color: var(--alog-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ul li:has(a):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px -14px rgba(44, 74, 85, 0.45);
+  }
+}
+
+/* エラーメッセージの一覧はカード化も2列化もしない */
+form ul,
+.errors ul {
+  display: block;
+  margin-top: 6px;
+}
+
+form ul li,
+.errors ul li {
+  background: #fdeaf3;
+  color: #a23e76;
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+form ul li a {
+  font-family: inherit;
+  font-weight: 400;
+  color: inherit;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #d9edf2;
+  margin: 32px 0;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 14px 40px;
+  }
+
+  /* 画面が狭いときは一覧を1列に戻す */
+  ul {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form {
+    padding: 16px;
+  }
+
+  .search-form input,
+  .search-form select {
+    max-width: none;
+    width: 100%;
+  }
 }

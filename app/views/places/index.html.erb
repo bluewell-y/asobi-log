@@ -1,5 +1,5 @@
 <h1>遊び場一覧</h1>
-<%= form_with url: places_path, method: :get do |f| %>
+<%= form_with url: places_path, method: :get, class: "search-form" do |f| %>
   <div>
     <%= f.label :keyword, "キーワード" %>
     <%= f.text_field :keyword, value: params[:keyword] %>
@@ -34,6 +34,16 @@
 <ul>
   <% @places.each do |place| %>
     <li>
+      <% if @favorite_place_ids.include?(place.id) || @visited_place_ids.include?(place.id) %>
+        <span class="card-marks">
+          <% if @favorite_place_ids.include?(place.id) %>
+            <span class="card-mark card-mark--fav" title="お気に入り"><%= place_status_icon(:favorite) %></span>
+          <% end %>
+          <% if @visited_place_ids.include?(place.id) %>
+            <span class="card-mark" title="行ったことがある">👟</span>
+          <% end %>
+        </span>
+      <% end %>
       <%= link_to place.name, place_path(place) %>
       （<%= place.category_label %>）
     </li>
