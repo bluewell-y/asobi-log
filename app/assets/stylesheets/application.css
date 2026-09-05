@@ -404,7 +404,7 @@ hr {
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
-  margin-bottom: 16px;                                     
+  margin-bottom: 16px;
 } 
 
 .place-gallery-img {
@@ -412,7 +412,7 @@ hr {
   width: clamp(64px, 20vw, 90px);
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 10px;                                                                        
+  border-radius: 10px;
 } 
 
 /* 編集画面：参考画像の右上に重ねる「×」削除ボタン */
@@ -420,16 +420,16 @@ hr {
   position: relative;
   display: inline-block;
   line-height: 0;
-}                                                                     
-                                                                                                          
+}
+
 .sub-image-delete {
   position: absolute;
   top: 4px;
   right: 4px;
   margin: 0;
 }
-                                                                      
-.sub-image-delete-btn {                                                                                  
+
+.sub-image-delete-btn {
   width: 22px;
   height: 22px;
   padding: 0;
@@ -440,8 +440,8 @@ hr {
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
-  cursor: pointer;                                                    
-  display: flex;                                                                                         
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -453,20 +453,20 @@ hr {
 /* 詳細ページ：画像クリックで全体像を拡大表示するライトボックス */
 .place-cover-image,
 .place-gallery-img {
-  cursor: zoom-in;                                                    
-}                                                                                                        
+  cursor: zoom-in;
+}
 
 .lightbox {
   border: none;
   padding: 0;
   background: transparent;
-  max-width: 92vw;
-  max-height: 92vh;
-  overflow: visible;                                                  
-}                                                                                                        
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+}
 
 .lightbox::backdrop {
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .lightbox-img {
@@ -475,6 +475,34 @@ hr {
   max-height: 92vh;
   width: auto;
   height: auto;
-  border-radius: 8px;                                                 
-  cursor: zoom-out;                                                                                      
+  margin: 0 auto;
+  border-radius: 8px;
 }
+
+.lightbox-close,
+.lightbox-nav {
+  position: fixed;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.lightbox-close { top: 16px; right: 16px; }
+.lightbox-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 12px; top: 50%; transform: translateY(-50%); }
