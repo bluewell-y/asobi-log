@@ -22,7 +22,7 @@
 
   <div>
     <%= f.label :sub_images, "参考画像（複数可）" %>
-    <%= f.file_field :sub_images, multiple: true, accept: "image/*" %>
+    <%= f.file_field :sub_images, multiple: true, accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#update" } %>
   </div>
 
   <div>
