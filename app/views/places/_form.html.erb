@@ -1,9 +1,9 @@
-<%= form_with model: @place do |f| %>
+<%= form_with model: @place, multipart: true do |f| %>
   <% if @place.errors.any? %>
     <div>
       <p><%= @place.errors.count %>件のエラーがあります</p>
       <ul>
-        <% error_messages_in_form_order(@place, %i[name description address category indoor_outdoor min_age max_age price business_hours]).each do |message| %>
+        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age price business_hours description]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -16,8 +16,13 @@
   </div>
 
   <div>
-    <%= f.label :description, "説明" %>
-    <%= f.text_area :description %>
+    <%= f.label :cover_image, "トップ画像" %>
+    <%= f.file_field :cover_image, accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= f.label :sub_images, "参考画像（複数可）" %>
+    <%= f.file_field :sub_images, multiple: true, accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#update" } %>
   </div>
 
   <div>
@@ -53,6 +58,11 @@
   <div>
     <%= f.label :business_hours, "営業時間" %>
     <%= f.text_field :business_hours %>
+  </div>
+
+  <div>
+    <%= f.label :description, "説明" %>
+    <%= f.text_area :description %>
   </div>
 
   <%= f.submit "保存する" %>
