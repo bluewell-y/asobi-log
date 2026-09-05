@@ -66,7 +66,7 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:name, :cover_image, :description, :address, :category, :indoor_outdoor, :min_age, :max_age, :price, :business_hours, sub_images: [])
+    params.require(:place).permit(:name, :cover_image, :description, :address, :category, :indoor_outdoor, :min_age, :max_age, :adult_price, :child_price, :opening_time, :closing_time, sub_images: [])
   end
 
   # 編集時、トップ画像を選び直さなかった場合は既存の添付を消さないようにする。

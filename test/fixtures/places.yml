@@ -8,8 +8,8 @@ one:
   indoor_outdoor: 1
   min_age: 0
   max_age: 12
-  price: 無料
-  business_hours: 24時間
+  adult_price: 0
+  child_price: 0 
   user: one
 
 two:
@@ -20,6 +20,8 @@ two:
   indoor_outdoor: 0
   min_age: 1
   max_age: 6
-  price: 500円
-  business_hours: 9:00-18:00
+  adult_price: 500
+  child_price: 300
+  opening_time: "9:00"
+  closing_time: "18:00"
   user: two

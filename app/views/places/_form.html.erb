@@ -3,8 +3,7 @@
     <div>
       <p><%= @place.errors.count %>件のエラーがあります</p>
       <ul>
-        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age price business_hours description]).each do |message| %>
-          <li><%= message %></li>
+        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
         <% end %>
       </ul>
     </div>
@@ -41,24 +40,40 @@
   </div>
 
   <div>
-    <%= f.label :min_age, "対象年齢（下限）" %>
-    <%= f.number_field :min_age %>
+    <%= f.label :min_age, "対象年齢（何歳から）" %>
+    <%= f.select :min_age, (0..15).to_a, { include_blank: true } %>
   </div>
 
   <div>
-    <%= f.label :max_age, "対象年齢（上限）" %>
-    <%= f.number_field :max_age %>
+    <%= f.label :max_age, "対象年齢（何歳まで）" %>
+    <%= f.select :max_age, (0..15).to_a, { include_blank: "年齢上限なし" } %>
+  </div> 
+
+  <div>
+    <%= f.label :adult_price, "大人料金" %>                           
+    <%= f.number_field :adult_price %> 円                                                                
   </div>
 
   <div>
-    <%= f.label :price, "料金" %>
-    <%= f.text_field :price %>
-  </div>
+    <%= f.label :child_price, "子供料金" %>
+    <%= f.number_field :child_price %> 円                             
+  </div> 
 
   <div>
-    <%= f.label :business_hours, "営業時間" %>
-    <%= f.text_field :business_hours %>
+    <%= f.label :opening_time, "営業時間（開始）" %>
+    <%= f.text_field :opening_time, list: "time_options" %>
+  </div>                                                              
+                                                                                                          
+  <div>
+    <%= f.label :closing_time, "営業時間（終了）" %>
+    <%= f.text_field :closing_time, list: "time_options" %>
   </div>
+
+  <datalist id="time_options">
+    <% %w[7:00 8:00 8:30 9:00 9:30 10:00 10:30 11:00 11:30 12:00 12:30 13:00 13:30 14:00 14:30 15:00 15:30 16:00 16:30 17:00 17:30 18:00 19:00 20:00 21:00 22:00].each do |t| %>
+      <option value="<%= t %>"></option>
+    <% end %>
+  </datalist>
 
   <div>
     <%= f.label :description, "説明" %>
