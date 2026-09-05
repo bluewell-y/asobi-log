@@ -14,6 +14,8 @@ class Place < ApplicationRecord
   }.freeze
 
   belongs_to :user
+  has_one_attached :cover_image
+  has_many_attached :sub_images
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
 
@@ -33,6 +35,7 @@ class Place < ApplicationRecord
 
   validates :name, presence: true
   validates :address, presence: true
+  validates :cover_image, presence: true
 
   scope :keyword_search, ->(keyword) {
     where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?

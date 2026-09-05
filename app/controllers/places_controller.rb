@@ -1,10 +1,10 @@
 class PlacesController < ApplicationController
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_place, only: [:show, :edit, :update, :destroy]
-  before_action :require_owner, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :remove_sub_image]
+  before_action :set_place, only: [:show, :edit, :update, :destroy, :remove_sub_image]
+  before_action :require_owner, only: [:edit, :update, :destroy, :remove_sub_image]
 
   def index
-    @places = Place.all
+    @places = Place.with_attached_cover_image
                     .keyword_search(params[:keyword])
                     .by_category(params[:category])
                     .by_indoor_outdoor(params[:indoor_outdoor])
@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-  end
+  end                                                                 
 
   def create
     @place = current_user.places.new(place_params)
@@ -31,11 +31,12 @@ class PlacesController < ApplicationController
     end
   end
 
-  def edit
+  def edit                                                                                               
   end
 
-  def update
-    if @place.update(place_params)
+  def update                                                          
+    if @place.update(place_params_for_update)                                                            
+      attach_new_sub_images
       redirect_to @place, notice: "遊び場を更新しました"
     else
       render :edit, status: :unprocessable_entity
@@ -47,9 +48,14 @@ class PlacesController < ApplicationController
     redirect_to places_path, notice: "遊び場を削除しました"
   end
 
+  def remove_sub_image
+    @place.sub_images_attachments.find(params[:attachment_id]).purge
+    redirect_to edit_place_path(@place), notice: "参考画像を削除しました"
+  end
+
   private
 
-  def set_place
+  def set_place                                                       
     @place = Place.find(params[:id])
   end
 
@@ -60,6 +66,21 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:name, :description, :address, :category, :indoor_outdoor, :min_age, :max_age, :price, :business_hours)
+    params.require(:place).permit(:name, :cover_image, :description, :address, :category, :indoor_outdoor, :min_age, :max_age, :price, :business_hours, sub_images: [])
+  end
+
+  # 編集時、トップ画像を選び直さなかった場合は既存の添付を消さないようにする。
+  # 参考画像は update 内で個別に扱うので、常に除外する。
+  def place_params_for_update
+    permitted = place_params
+    permitted.delete(:cover_image) if permitted[:cover_image].blank?
+    permitted.delete(:sub_images)
+    permitted
+  end
+
+  # 編集フォームで新しく選ばれた参考画像を、既存を消さずに追加する
+  def attach_new_sub_images
+    new_images = params.dig(:place, :sub_images)&.compact_blank
+    @place.sub_images.attach(new_images) if new_images.present?
   end
 end
