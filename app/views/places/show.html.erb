@@ -10,7 +10,7 @@
   <% end %>       
   
   <% if @place.sub_images.attached? %>
-    <div class="place-gallery">
+    <div class="place-gallery place-gallery--slider">
       <% @place.sub_images.each do |sub_image| %>
         <%= image_tag sub_image.variant(resize_to_fill: [90, 90]),
               class: "place-gallery-img",

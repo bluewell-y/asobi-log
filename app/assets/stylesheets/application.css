@@ -295,8 +295,7 @@ ul li {
   margin: 6px 0; 
 }
 
-/* 一覧カード右上の状態マーク（お気に入り／行った）。
-   float にして、遊び場名が長いときはマークを避けて折り返す。 */
+/* 一覧カード右上の状態マーク（お気に入り／行った）。float にして、遊び場名が長いときはマークを避けて折り返す。 */
 .card-marks {
   float: right;
   margin: 2px 0 4px 12px;
@@ -506,3 +505,13 @@ hr {
 .lightbox-close { top: 16px; right: 16px; }
 .lightbox-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .lightbox-next { right: 12px; top: 50%; transform: translateY(-50%); }
+
+/* 詳細ページ：参考画像の帯をトップ画像と同じ幅に収め、はみ出す分は横スライド（スクロール／スワイプ）で見えるようにする */
+.place-gallery--slider {
+  max-width: 480px;
+  scroll-snap-type: x proximity;
+}
+
+.place-gallery--slider .place-gallery-img {
+  scroll-snap-align: start;
+}   
