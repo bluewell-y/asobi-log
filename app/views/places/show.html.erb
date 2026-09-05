@@ -2,7 +2,7 @@
 
 <div data-controller="lightbox">
   <% if @place.cover_image.attached? %>
-    <%= image_tag @place.cover_image.variant(resize_to_fill: [480, 260]),
+    <%= image_tag @place.cover_image.variant(resize_to_fill: [620, 336]),
           class: "place-cover-image",
           role: "button",
           data: { action: "click->lightbox#open",

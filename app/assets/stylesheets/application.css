@@ -390,8 +390,8 @@ hr {
 .place-cover-image {
   display: block;
   width: 100%;
-  max-width: 480px;
-  aspect-ratio: 480 / 260;
+  max-width: 620px;
+  aspect-ratio: 620 / 336;
   object-fit: cover;
   border-radius: 16px;
   margin: 12px 0 8px;
@@ -508,7 +508,7 @@ hr {
 
 /* 詳細ページ：参考画像の帯をトップ画像と同じ幅に収め、はみ出す分は横スライド（スクロール／スワイプ）で見えるようにする */
 .place-gallery--slider {
-  max-width: 480px;
+  max-width: 620px;
   scroll-snap-type: x proximity;
 }
 
