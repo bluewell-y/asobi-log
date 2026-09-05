@@ -53,4 +53,25 @@ class Place < ApplicationRecord
   def indoor_outdoor_label
     INDOOR_OUTDOOR_LABELS[indoor_outdoor]
   end
+
+  def fee_text
+    parts = []
+    parts << "大人 #{adult_price}円" if adult_price.present?
+    parts << "子供 #{child_price}円" if child_price.present?
+    parts.join("／").presence
+  end
+
+  def business_hours_text
+    return nil if opening_time.blank? && closing_time.blank?
+
+    "#{opening_time}〜#{closing_time}"
+  end
+
+  def age_range_text
+    return nil if min_age.blank? && max_age.blank?
+
+    lower = min_age.present? ? "#{min_age}歳" : ""
+    upper = max_age.present? ? "#{max_age}歳" : "年齢上限なし"
+    "#{lower}〜#{upper}"
+  end
 end
