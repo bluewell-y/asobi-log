@@ -449,3 +449,32 @@ hr {
 .sub-image-delete-btn:hover {
   background: #e56b52;
 }
+
+/* 詳細ページ：画像クリックで全体像を拡大表示するライトボックス */
+.place-cover-image,
+.place-gallery-img {
+  cursor: zoom-in;                                                    
+}                                                                                                        
+
+.lightbox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow: visible;                                                  
+}                                                                                                        
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 92vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;                                                 
+  cursor: zoom-out;                                                                                      
+}
