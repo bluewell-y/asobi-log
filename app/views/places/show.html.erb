@@ -1,12 +1,12 @@
 <h1><%= @place.name %></h1>
 <% if @place.cover_image.attached? %>
-  <%= image_tag @place.cover_image, class: "place-cover-image" %>
+  <%= image_tag @place.cover_image.variant(resize_to_fill: [480, 260]), class: "place-cover-image" %>
 <% end %>
 
 <% if @place.sub_images.attached? %>
   <div class="place-gallery">
     <% @place.sub_images.each do |sub_image| %>
-      <%= image_tag sub_image, class: "place-gallery-img" %>
+      <%= image_tag sub_image.variant(resize_to_fill: [90, 90]), class: "place-gallery-img" %>
     <% end %>
   </div>
 <% end %>
