@@ -414,3 +414,38 @@ hr {
   object-fit: cover;
   border-radius: 10px;                                                                        
 } 
+
+/* 編集画面：参考画像の右上に重ねる「×」削除ボタン */
+.sub-image-item {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}                                                                     
+                                                                                                          
+.sub-image-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  margin: 0;
+}
+                                                                      
+.sub-image-delete-btn {                                                                                  
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;                                                    
+  display: flex;                                                                                         
+  align-items: center;
+  justify-content: center;
+}
+
+.sub-image-delete-btn:hover {
+  background: #e56b52;
+}
