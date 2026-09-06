@@ -5,14 +5,14 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.with_attached_cover_image
-                    .keyword_search(params[:keyword])
-                    .by_category(params[:category])
-                    .by_indoor_outdoor(params[:indoor_outdoor])
-                    .for_age(params[:age])
+      .keyword_search(params[:keyword])
+      .by_category(params[:category])
+      .by_indoor_outdoor(params[:indoor_outdoor])
+      .for_age(params[:age])
 
     # 一覧カードに表示する状態マーク用（未ログイン時は空）
     @favorite_place_ids = logged_in? ? current_user.favorite_places.ids : []
-    @visited_place_ids  = logged_in? ? current_user.visited_places.ids : []
+    @visited_place_ids = logged_in? ? current_user.visited_places.ids : []
   end
 
   def show
@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-  end                                                                 
+  end
 
   def create
     @place = current_user.places.new(place_params)
@@ -31,11 +31,11 @@ class PlacesController < ApplicationController
     end
   end
 
-  def edit                                                                                               
+  def edit
   end
 
-  def update                                                          
-    if @place.update(place_params_for_update)                                                            
+  def update
+    if @place.update(place_params_for_update)
       attach_new_sub_images
       redirect_to @place, notice: "遊び場を更新しました"
     else
@@ -55,7 +55,7 @@ class PlacesController < ApplicationController
 
   private
 
-  def set_place                                                       
+  def set_place
     @place = Place.find(params[:id])
   end
 

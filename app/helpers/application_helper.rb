@@ -4,7 +4,7 @@ module ApplicationHelper
   def error_messages_in_form_order(record, order)
     keys = order.map(&:to_s)
     record.errors.each_with_index
-          .sort_by { |error, i| [keys.index(error.attribute.to_s) || keys.size, i] }
-          .map { |error, _| error.full_message }
+      .sort_by { |error, i| [keys.index(error.attribute.to_s) || keys.size, i] }
+      .map { |error, _| error.full_message }
   end
 end
