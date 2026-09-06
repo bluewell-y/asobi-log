@@ -45,7 +45,7 @@ class Place < ApplicationRecord
   scope :for_age, ->(age) {
     where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
   }
-  
+
   def category_label
     CATEGORY_LABELS[category]
   end
