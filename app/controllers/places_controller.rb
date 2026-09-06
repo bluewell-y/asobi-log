@@ -19,7 +19,7 @@ class PlacesController < ApplicationController
   end
 
   def new
-    @place = Place.new
+    @place = Place.new(category: nil, indoor_outdoor: nil)
   end
 
   def create

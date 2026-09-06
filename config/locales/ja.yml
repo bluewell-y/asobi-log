@@ -46,7 +46,7 @@ ja:
         name: 遊び場名
         description: 説明
         address: 住所
-        category: カテゴリ
+        category: カテゴリー
         indoor_outdoor: 屋内/屋外
         min_age: 対象年齢（下限）
         max_age: 対象年齢（上限）
