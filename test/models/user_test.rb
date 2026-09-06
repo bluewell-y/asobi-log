@@ -18,14 +18,14 @@ class UserTest < ActiveSupport::TestCase
     user = valid_user
     user.name = ""
     assert_not user.valid?
-    assert_includes user.errors[:name], "can't be blank"
+    assert user.errors.of_kind?(:name, :blank)
   end
 
   test "emailが重複していると保存できない" do
     valid_user.save!
     duplicate = valid_user
     assert_not duplicate.valid?
-    assert_includes duplicate.errors[:email], "has already been taken"
+    assert duplicate.errors.of_kind?(:email, :taken)
   end
 
   test "正しいパスワードでauthenticateが成功する" do
