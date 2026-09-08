@@ -1,21 +1,21 @@
 <%= form_with model: @place, multipart: true do |f| %>
   <% if @place.errors.any? %>
     <div>
-      <p><%= @place.errors.count %>件のエラーがあります</p>
       <ul>
         <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div>
-    <%= f.label :name, "遊び場名" %>
+    <%= f.label :name do %>遊び場名 <span class="required">*必須</span><% end %>
     <%= f.text_field :name %>
   </div>
 
   <div>
-    <%= f.label :cover_image, "トップ画像" %>
+    <%= f.label :cover_image do %>トップ画像 <span class="required">*必須</span><% end %>
     <%= f.file_field :cover_image, accept: "image/*" %>
   </div>
 
@@ -25,18 +25,18 @@
   </div>
 
   <div>
-    <%= f.label :address, "住所" %>
+    <%= f.label :address do %>住所 <span class="required">*必須</span><% end %>
     <%= f.text_field :address %>
   </div>
 
   <div>
-    <%= f.label :category, "カテゴリ" %>
-    <%= f.select :category, [["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"], ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]] %>
+    <%= f.label :category do %>カテゴリー <span class="required">*必須</span><% end %>
+    <%= f.select :category, [["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"], ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]], include_blank: "選択してください" %>
   </div>
 
   <div>
-    <%= f.label :indoor_outdoor, "屋内/屋外" %>
-    <%= f.select :indoor_outdoor, [["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]] %>
+    <%= f.label :indoor_outdoor do %>屋内/屋外 <span class="required">*必須</span><% end %>
+    <%= f.select :indoor_outdoor, [["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]], include_blank: "選択してください" %>
   </div>
 
   <div>

@@ -3,7 +3,6 @@
 <%= form_with model: @user, url: mypage_path, method: :patch do |f| %>
   <% if @user.errors.any? %>
     <div>
-      <p><%= @user.errors.count %>件のエラーがあります</p>
       <ul>
         <% error_messages_in_form_order(@user, %i[name email password password_confirmation]).each do |message| %>
           <li><%= message %></li>
@@ -13,12 +12,12 @@
   <% end %>
 
   <div>
-    <%= f.label :name, "名前" %>
+    <%= f.label :name do %>名前 <span class="required">*必須</span><% end %>
     <%= f.text_field :name %>
   </div>
 
   <div>
-    <%= f.label :email, "メールアドレス" %>
+    <%= f.label :email do %>メールアドレス <span class="required">*必須</span><% end %>
     <%= f.email_field :email %>
   </div>
 

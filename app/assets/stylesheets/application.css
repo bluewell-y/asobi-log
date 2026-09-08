@@ -514,4 +514,12 @@ hr {
 
 .place-gallery--slider .place-gallery-img {
   scroll-snap-align: start;
-}   
+}
+
+/* フォームの必須マーク */
+.required {
+  margin-left: 4px;
+  color: #c0392b;
+  font-size: 12px;
+  font-weight: 700;
+}

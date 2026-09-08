@@ -36,6 +36,8 @@ class Place < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
   validates :cover_image, presence: true
+  validates :category, presence: true
+  validates :indoor_outdoor, presence: true
 
   scope :keyword_search, ->(keyword) {
     where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?
