@@ -269,7 +269,7 @@ textarea {
 ul {
   list-style: none;
   padding: 0;
-  /* 意匠帖の見本と同じく、カードを標準で2列に並べる */
+  /* カードを標準で2列に並べる */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
@@ -279,7 +279,7 @@ ul li {
   background: var(--alog-surface);
   padding: 16px 20px;
   border: none;
-  /* 意匠帖「02 公園日和」と同じ、四隅そろった角丸の枠 */
+  /* 四隅そろった角丸の枠 */
   border-radius: 24px;
   box-shadow: var(--alog-shadow);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -522,4 +522,58 @@ hr {
   color: #c0392b;
   font-size: 12px;
   font-weight: 700;
+}
+
+  /* 一覧カードの中身*/
+.place-card-name {
+  margin: 6px 0 4px;
+  font-family: var(--alog-font-head);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.place-card-name a {
+  color: var(--alog-ink);
+  text-decoration: none;
+}
+
+.place-card-name a:hover {
+  color: var(--alog-accent);
+}
+
+.place-card-meta {
+  margin: 8px 0 10px;
+  font-size: 12px;
+  color: var(--alog-muted);
+}
+
+.place-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin-bottom: 12px;
+}
+
+.place-card-stats span {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(226, 143, 194, 0.16);
+  color: var(--alog-ink);
+  font-size: 12px;
+}
+
+ul li a.place-card-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--alog-radius-sm);
+  background: var(--alog-accent-bg);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+ul li a.place-card-btn:hover {
+  background: #3aa1b2;
+  color: #fff;
 }

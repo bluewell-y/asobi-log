@@ -44,11 +44,22 @@
           <% end %>
         </span>
       <% end %>
-      <%= link_to place.name, place_path(place) %>
+
+      <h3 class="place-card-name"><%= link_to place.name, place_path(place) %></h3>
+
       <% if place.cover_image.attached? %>
         <div class="place-thumb"><%= image_tag place.cover_image.variant(resize_to_fill: [400, 200]) %></div>
       <% end %>
-      （<%= place.category_label %>）
+
+      <p class="place-card-meta"><%= [place.category_label, place.indoor_outdoor_label].compact.join("・") %>｜<%= place.address %></p>
+
+      <div class="place-card-stats">
+        <% if place.age_range_text %><span><%= place.age_range_text %></span><% end %>
+        <% if place.fee_text %><span><%= place.fee_text %></span><% end %>
+        <% if place.business_hours_text %><span><%= place.business_hours_text %></span><% end %>
+      </div>
+
+      <%= link_to "くわしく見る", place_path(place), class: "place-card-btn" %>
     </li>
   <% end %>
 </ul>
