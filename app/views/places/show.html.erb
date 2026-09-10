@@ -32,6 +32,11 @@
 </div>
 
 <p>住所：<%= @place.address %></p>
+<% if (map_url = place_map_embed_url(@place)) %>
+  <div class="place-map">
+    <iframe src="<%= map_url %>" loading="lazy" allowfullscreen title="<%= @place.name %>の地図"></iframe>
+  </div>
+<% end %>
 <p>カテゴリー：<%= @place.category_label %></p>
 <p>屋内/屋外：<%= @place.indoor_outdoor_label %></p>
 <% if @place.age_range_text %>

@@ -114,4 +114,12 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to places_path
   end
+  test "APIキーがあれば詳細ページに地図が表示される" do
+    original = ENV["GOOGLE_MAPS_API_KEY"]
+    ENV["GOOGLE_MAPS_API_KEY"] = "test-key"
+    get place_path(places(:one))
+    assert_includes response.body, "https://www.google.com/maps/embed/v1/place"
+  ensure
+    ENV["GOOGLE_MAPS_API_KEY"] = original
+  end
 end
