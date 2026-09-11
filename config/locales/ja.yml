@@ -39,6 +39,7 @@ ja:
     attributes:
       user:
         name: 名前
+        nickname: ニックネーム
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）

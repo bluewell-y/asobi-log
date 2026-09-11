@@ -208,6 +208,12 @@ form label {
   color: var(--alog-muted);
 }
 
+.field-hint {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: var(--alog-muted);
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],

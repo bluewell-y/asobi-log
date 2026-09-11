@@ -4,6 +4,7 @@
 
 user = User.first || User.create!(
   name: "テスト",
+  nickname: "テストくん",
   email: "test@example.com",
   password: "password123",
   password_confirmation: "password123"
