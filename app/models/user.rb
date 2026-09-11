@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_many :visited_places, through: :visits, source: :place
 
   validates :name, presence: true
+  validates :nickname, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
 end

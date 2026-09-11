@@ -4,13 +4,14 @@ class UserTest < ActiveSupport::TestCase
   def valid_user
     User.new(
       name: "テストユーザー",
+      nickname: "テストにっく",
       email: "unique_test@example.com",
       password: "password123",
       password_confirmation: "password123"
     )
   end
 
-  test "name, email, passwordがあれば保存できる" do
+  test "name, nickname, email, passwordがあれば保存できる" do
     assert valid_user.valid?
   end
 
@@ -19,6 +20,20 @@ class UserTest < ActiveSupport::TestCase
     user.name = ""
     assert_not user.valid?
     assert user.errors.of_kind?(:name, :blank)
+  end
+
+  test "nicknameが空だと保存できない" do
+    user = valid_user
+    user.nickname = ""
+    assert_not user.valid?
+    assert user.errors.of_kind?(:nickname, :blank)
+  end
+
+  test "nicknameが重複していると保存できない" do
+    valid_user.save!
+    duplicate = valid_user
+    assert_not duplicate.valid?
+    assert duplicate.errors.of_kind?(:nickname, :taken)
   end
 
   test "emailが重複していると保存できない" do

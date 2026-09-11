@@ -49,7 +49,7 @@
   <p>営業時間：<%= @place.business_hours_text %></p>
 <% end %>
 <p>説明：<%= @place.description %></p>
-<p>登録者：<%= @place.user.name %></p>
+<p>登録者：<%= @place.user.nickname %></p>
 
 <% if logged_in? %>
   <% if current_user.favorites.exists?(place: @place) %>

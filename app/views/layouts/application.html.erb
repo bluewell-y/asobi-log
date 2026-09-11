@@ -16,7 +16,7 @@
     <nav>
       <%= link_to "あそびログ", root_path %>
       <% if logged_in? %>
-        <span><%= current_user.name %>さん</span>
+        <span><%= current_user.nickname %>さん</span>
         <%= link_to "マイページ", mypage_path %>
         <%= link_to "お気に入り一覧", favorites_path %>
         <%= link_to "行った場所一覧", visits_path %>

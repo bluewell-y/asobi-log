@@ -10,6 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post users_path, params: {user: {
         name: "新規太郎",
+        nickname: "しんきち",
         email: "shinki@example.com",
         password: "password123",
         password_confirmation: "password123"

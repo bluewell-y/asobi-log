@@ -2,10 +2,12 @@
 
 one:
   name: ユーザー1
+  nickname: にっく1
   email: user1@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>
-
+  
 two:
   name: ユーザー2
+  nickname: にっく2
   email: user2@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>
