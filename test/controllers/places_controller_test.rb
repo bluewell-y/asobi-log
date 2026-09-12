@@ -82,11 +82,17 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "登録者以外が編集画面を開くと一覧へリダイレクトする" do
+  test "登録者以外でもログインしていれば編集画面を開ける" do
     place = create_place(users(:one))
     login_as(users(:two))
     get edit_place_path(place)
-    assert_redirected_to places_path
+    assert_response :success
+  end
+
+  test "未ログインで編集画面を開くとログイン画面へリダイレクトする" do
+    place = create_place(users(:one))
+    get edit_place_path(place)
+    assert_redirected_to new_session_path
   end
 
   test "登録者本人は遊び場を更新できる" do
@@ -95,6 +101,14 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     patch place_path(place), params: {place: {name: "更新後の名前"}}
     assert_redirected_to place_path(place)
     assert_equal "更新後の名前", place.reload.name
+  end
+
+  test "登録者以外でもログインしていれば更新できる" do
+    place = create_place(users(:one))
+    login_as(users(:two))
+    patch place_path(place), params: {place: {name: "他人が更新した名前"}}
+    assert_redirected_to place_path(place)
+    assert_equal "他人が更新した名前", place.reload.name
   end
 
   test "登録者本人は遊び場を削除できる" do
@@ -114,6 +128,15 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to places_path
   end
+
+  test "未ログインで削除しようとするとログイン画面へリダイレクトする" do
+    place = create_place(users(:one))
+    assert_no_difference "Place.count" do
+      delete place_path(place)
+    end
+    assert_redirected_to new_session_path
+  end
+
   test "APIキーがあれば詳細ページに地図が表示される" do
     original = ENV["GOOGLE_MAPS_API_KEY"]
     ENV["GOOGLE_MAPS_API_KEY"] = "test-key"
