@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :remove_sub_image]
   before_action :set_place, only: [:show, :edit, :update, :destroy, :remove_sub_image]
-  before_action :require_owner, only: [:edit, :update, :destroy, :remove_sub_image]
+  before_action :require_owner, only: [:destroy]
 
   def index
     @places = Place.with_attached_cover_image
