@@ -1,0 +1,37 @@
+<h1><%= @place.name %>の口コミを投稿する</h1>
+
+<div class="review-guide">
+  <p>口コミの投稿には、星の数の設定が必須です。</p>
+  <p>・星3つ以上：コメントの入力は任意です。</p>
+  <p>・星なし〜星2つ：コメントの入力が必須です。</p>
+</div>
+
+<%= form_with model: @review, url: place_reviews_path(@place) do |f| %>
+  <% if @review.errors.any? %>
+    <div>
+      <ul>
+        <% error_messages_in_form_order(@review, %i[rating comment]).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :rating do %>評価 <span class="required">*必須</span><% end %>
+    <% [["星なし", 0], ["★☆☆☆☆", 1], ["★★☆☆☆", 2], ["★★★☆☆", 3], ["★★★★☆", 4], ["★★★★★", 5]].each do |label, value| %>
+      <label>
+        <%= f.radio_button :rating, value %> <%= label %>
+      </label>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :comment, "コメント" %>
+    <%= f.text_area :comment %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "詳細ページに戻る", place_path(@place) %>

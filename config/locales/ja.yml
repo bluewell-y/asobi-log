@@ -36,6 +36,7 @@ ja:
     models:
       user: 会員情報
       place: 遊び場
+      review: 口コミ
     attributes:
       user:
         name: 名前
@@ -54,3 +55,6 @@ ja:
         price: 料金
         business_hours: 営業時間
         cover_image: トップ画像
+      review:
+        rating: 評価
+        comment: コメント

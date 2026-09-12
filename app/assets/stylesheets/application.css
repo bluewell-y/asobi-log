@@ -190,6 +190,16 @@ button:hover,
   background: #cf5540;
 }
 
+.btn--sm {
+  padding: 5px 14px;
+  font-size: 12px;
+}
+
+.review-count {
+  font-size: 13px;
+  color: var(--alog-muted);
+}
+
 .button_to {
   display: inline-block;
   margin: 0 8px 8px 0;
@@ -212,6 +222,39 @@ form label {
   margin: 3px 0 0;
   font-size: 10px;
   color: var(--alog-muted);
+}
+
+.review-guide {
+  background: var(--alog-surface);
+  border-radius: var(--alog-radius);
+  box-shadow: var(--alog-shadow);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  max-width: 400px;
+}
+
+.review-author {
+  font-size: 12px;
+  color: var(--alog-muted);
+}
+
+.review-rating {
+  margin: 0 0 4px;
+}
+
+.review-comment {
+  margin: 0 0 4px;
+}
+
+.review-guide p {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--alog-muted);
+}
+
+.review-guide p:last-child {
+  margin-bottom: 0;
 }
 
 input[type="text"],
@@ -551,6 +594,9 @@ hr {
   margin: 8px 0 10px;
   font-size: 12px;
   color: var(--alog-muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .place-card-stats {
