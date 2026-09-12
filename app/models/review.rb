@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :user
-  belongs_to :place
+  belongs_to :place, counter_cache: true
 
   validates :rating, presence: true, inclusion: {in: 0..5}
   validates :comment, presence: true, if: :comment_required?

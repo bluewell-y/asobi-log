@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_09_11_222516) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_12_060508) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_11_222516) do
     t.integer "child_price"
     t.string "opening_time"
     t.string "closing_time"
+    t.integer "reviews_count", default: 0, null: false
     t.index ["user_id"], name: "index_places_on_user_id"
   end
 

@@ -51,7 +51,10 @@
         <div class="place-thumb"><%= image_tag place.cover_image.variant(resize_to_fill: [400, 200]) %></div>
       <% end %>
 
-      <p class="place-card-meta"><%= [place.category_label, place.indoor_outdoor_label].compact.join("・") %>｜<%= place.address %></p>
+      <p class="place-card-meta">
+        <span><%= [place.category_label, place.indoor_outdoor_label].compact.join("・") %>｜<%= place.address %></span>
+        <span>口コミ <%= place.reviews_count %>件</span>
+      </p>
 
       <div class="place-card-stats">
         <% if place.age_range_text %><span><%= place.age_range_text %></span><% end %>

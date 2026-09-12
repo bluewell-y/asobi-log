@@ -195,6 +195,11 @@ button:hover,
   font-size: 12px;
 }
 
+.review-count {
+  font-size: 13px;
+  color: var(--alog-muted);
+}
+
 .button_to {
   display: inline-block;
   margin: 0 8px 8px 0;
@@ -589,6 +594,9 @@ hr {
   margin: 8px 0 10px;
   font-size: 12px;
   color: var(--alog-muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .place-card-stats {
