@@ -614,6 +614,17 @@ hr {
   font-size: 12px;
 }
 
+.place-card {
+  position: relative;
+  padding-bottom: 56px;
+}
+
+.place-card .place-card-btn {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+}
+
 ul li a.place-card-btn {
   display: inline-flex;
   align-items: center;
