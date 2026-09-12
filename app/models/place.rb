@@ -18,6 +18,7 @@ class Place < ApplicationRecord
   has_many_attached :sub_images
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   enum :category, {
     park: 0,             # 公園

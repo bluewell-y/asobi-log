@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :places do
     resource :favorite, only: [:create, :destroy]
     resource :visit, only: [:create, :destroy]
+    resources :reviews, only: [:new, :create, :edit, :update, :destroy]
   end
   delete "places/:id/sub_images/:attachment_id", to: "places#remove_sub_image", as: :remove_sub_image
   resources :favorites, only: [:index]

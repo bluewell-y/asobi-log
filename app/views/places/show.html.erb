@@ -71,3 +71,25 @@
 <% end %>
 
 <%= link_to "一覧に戻る", places_path, class: "btn" %>
+
+<h2>口コミ</h2>
+<% if logged_in? %>
+  <%= link_to "口コミを投稿する", new_place_review_path(@place) %>
+<% end %>
+
+<ul>
+  <% @place.reviews.includes(:user).order(created_at: :desc).each do |review| %>
+    <li>
+      <p class="review-rating"><%= ["星なし", "★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★"][review.rating] %></p>
+      <% if review.comment.present? %>
+        <p class="review-comment"><%= review.comment %></p>
+      <% end %>
+      <p class="review-author">投稿者：<%= review.user.nickname %></p>
+
+      <% if logged_in? && review.user == current_user %>
+        <%= link_to "編集する", edit_place_review_path(@place, review), class: "btn btn--owner btn--sm" %>
+        <%= button_to "削除する", place_review_path(@place, review), method: :delete, class: "btn--owner btn--sm", data: { turbo_confirm: "本当に削除しますか？" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
