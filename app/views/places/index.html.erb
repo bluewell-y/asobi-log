@@ -33,7 +33,7 @@
 
 <ul>
   <% @places.each do |place| %>
-    <li>
+    <li class="place-card">
       <% if @favorite_place_ids.include?(place.id) || @visited_place_ids.include?(place.id) %>
         <span class="card-marks">
           <% if @favorite_place_ids.include?(place.id) %>
