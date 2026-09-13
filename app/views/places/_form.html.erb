@@ -2,7 +2,7 @@
   <% if @place.errors.any? %>
     <div>
       <ul>
-        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
+        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor parking min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -37,6 +37,11 @@
   <div>
     <%= f.label :indoor_outdoor do %>屋内/屋外 <span class="required">*必須</span><% end %>
     <%= f.select :indoor_outdoor, [["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]], include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :parking do %>駐車場 <span class="required">*必須</span><% end %>
+    <%= f.select :parking, [["あり", "available"], ["なし", "unavailable"]], include_blank: "選択してください" %>
   </div>
 
   <div>

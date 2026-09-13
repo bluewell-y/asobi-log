@@ -13,6 +13,11 @@ class Place < ApplicationRecord
     "both" => "両方"
   }.freeze
 
+  PARKING_LABELS = {
+    "unavailable" => "なし",
+    "available" => "あり"
+  }.freeze
+
   belongs_to :user
   has_one_attached :cover_image
   has_many_attached :sub_images
@@ -34,11 +39,17 @@ class Place < ApplicationRecord
     both: 2     # 両方
   }
 
+  enum :parking, {
+    unavailable: 0, # なし
+    available: 1    # あり
+  }
+
   validates :name, presence: true
   validates :address, presence: true
   validates :cover_image, presence: true
   validates :category, presence: true
   validates :indoor_outdoor, presence: true
+  validates :parking, presence: true
 
   scope :keyword_search, ->(keyword) {
     where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?
@@ -55,6 +66,10 @@ class Place < ApplicationRecord
 
   def indoor_outdoor_label
     INDOOR_OUTDOOR_LABELS[indoor_outdoor]
+  end
+
+  def parking_label
+    PARKING_LABELS[parking]
   end
 
   def fee_text

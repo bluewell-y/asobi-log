@@ -39,11 +39,12 @@
 <% end %>
 <p>カテゴリー：<%= @place.category_label %></p>
 <p>屋内/屋外：<%= @place.indoor_outdoor_label %></p>
+<p>駐車場：<%= @place.parking_label %></p>
 <% if @place.age_range_text %>
   <p>対象年齢：<%= @place.age_range_text %></p>
 <% end %>
-<% if @place.fee_text %>                                              
-  <p>料金：<%= @place.fee_text %></p>                                                                    
+<% if @place.fee_text %>
+  <p>料金：<%= @place.fee_text %></p>
 <% end %>
 <% if @place.business_hours_text %>
   <p>営業時間：<%= @place.business_hours_text %></p>
