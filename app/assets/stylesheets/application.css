@@ -498,6 +498,40 @@ hr {
   background: #e56b52;
 }
 
+.tag-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 12px;
+  border-radius: 999px;
+  background: rgba(226, 143, 194, 0.16);
+  color: var(--alog-ink);
+  font-size: 13px;
+}
+
+.tag-chip-remove {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tag-chip-remove:hover {
+  background: #e56b52;
+}
+
 /* 詳細ページ：画像クリックで全体像を拡大表示するライトボックス */
 .place-cover-image,
 .place-gallery-img {
