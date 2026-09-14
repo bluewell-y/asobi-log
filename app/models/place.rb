@@ -28,6 +28,8 @@ class Place < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :place_tags, dependent: :destroy
+  has_many :tags, through: :place_tags
 
   enum :category, {
     park: 0,             # 公園
