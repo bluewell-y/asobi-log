@@ -1,4 +1,8 @@
 class Place < ApplicationRecord
+  # 出典: geolonia/japanese-addresses（CC BY 4.0）https://github.com/geolonia/japanese-addresses
+  PREFECTURES_CITIES = JSON.parse(File.read(Rails.root.join("db/data/prefectures_cities.json"))).freeze
+  PREFECTURES = PREFECTURES_CITIES.keys.freeze
+
   CATEGORY_LABELS = {
     "park" => "公園",
     "indoor_facility" => "室内施設",
@@ -11,6 +15,11 @@ class Place < ApplicationRecord
     "indoor" => "屋内",
     "outdoor" => "屋外",
     "both" => "両方"
+  }.freeze
+
+  PARKING_LABELS = {
+    "unavailable" => "なし",
+    "available" => "あり"
   }.freeze
 
   belongs_to :user
@@ -34,11 +43,20 @@ class Place < ApplicationRecord
     both: 2     # 両方
   }
 
+  enum :parking, {
+    unavailable: 0, # なし
+    available: 1    # あり
+  }
+
   validates :name, presence: true
   validates :address, presence: true
   validates :cover_image, presence: true
   validates :category, presence: true
   validates :indoor_outdoor, presence: true
+  validates :prefecture, presence: true, inclusion: {in: PREFECTURES}
+  validates :city, presence: true
+  validate :city_belongs_to_prefecture
+  validates :parking, presence: true
 
   scope :keyword_search, ->(keyword) {
     where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?
@@ -55,6 +73,14 @@ class Place < ApplicationRecord
 
   def indoor_outdoor_label
     INDOOR_OUTDOOR_LABELS[indoor_outdoor]
+  end
+
+  def parking_label
+    PARKING_LABELS[parking]
+  end
+
+  def self.cities_for(prefecture)
+    PREFECTURES_CITIES.fetch(prefecture, [])
   end
 
   def fee_text
@@ -76,5 +102,19 @@ class Place < ApplicationRecord
     lower = min_age.present? ? "#{min_age}歳" : ""
     upper = max_age.present? ? "#{max_age}歳" : "年齢上限なし"
     "#{lower}〜#{upper}"
+  end
+
+  def full_address
+    "#{prefecture}#{city}#{address}"
+  end
+
+  private
+
+  def city_belongs_to_prefecture
+    return if prefecture.blank? || city.blank?
+
+    unless self.class::PREFECTURES_CITIES.fetch(prefecture, []).include?(city)
+      errors.add(:city, :invalid)
+    end
   end
 end

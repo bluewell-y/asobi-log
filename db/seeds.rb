@@ -18,7 +18,9 @@ places = [
     attrs: {
       name: "みどり公園",
       description: "広い芝生の公園",
-      address: "東京都渋谷区1-1",
+      prefecture: "東京都",
+      city: "渋谷区",
+      address: "1-1",
       category: :park,
       indoor_outdoor: :outdoor,
       min_age: 0,
@@ -32,7 +34,9 @@ places = [
     attrs: {
       name: "キッズパーク",
       description: "室内の遊び場",
-      address: "東京都新宿区2-2",
+      prefecture: "東京都",
+      city: "新宿区",
+      address: "2-2",
       category: :indoor_facility,
       indoor_outdoor: :indoor,
       min_age: 1,
@@ -48,7 +52,9 @@ places = [
     attrs: {
       name: "科学未来館",
       description: "科学を体験できる施設",
-      address: "東京都江東区3-3",
+      prefecture: "東京都",
+      city: "江東区",
+      address: "3-3",
       category: :museum,
       indoor_outdoor: :indoor,
       min_age: 5,

@@ -1,0 +1,6 @@
+class AddPrefectureAndCityToPlaces < ActiveRecord::Migration[7.1]
+  def change
+    add_column :places, :prefecture, :string
+    add_column :places, :city, :string
+  end
+end

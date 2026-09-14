@@ -2,7 +2,7 @@
   <% if @place.errors.any? %>
     <div>
       <ul>
-        <% error_messages_in_form_order(@place, %i[name cover_image sub_images address category indoor_outdoor min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
+        <% error_messages_in_form_order(@place, %i[name cover_image sub_images prefecture city address category indoor_outdoor parking min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -24,9 +24,21 @@
     <%= f.file_field :sub_images, multiple: true, accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#update" } %>
   </div>
 
-  <div>
-    <%= f.label :address do %>住所 <span class="required">*必須</span><% end %>
-    <%= f.text_field :address %>
+  <div data-controller="prefecture-city" data-prefecture-city-cities-value="<%= Place::PREFECTURES_CITIES.to_json %>">
+    <div>
+      <%= f.label :prefecture do %>都道府県 <span class="required">*必須</span><% end %>
+      <%= f.select :prefecture, Place::PREFECTURES, { include_blank: "選択してください" }, data: { prefecture_city_target: "prefecture", action: "change->prefecture-city#updateCities" } %>
+    </div>
+
+    <div>
+      <%= f.label :city do %>市区町村 <span class="required">*必須</span><% end %>
+      <%= f.select :city, Place.cities_for(f.object.prefecture), {}, data: { prefecture_city_target: "city", selected: f.object.city } %>
+    </div>
+
+    <div>
+      <%= f.label :address do %>番地・建物名など <span class="required">*必須</span><% end %>
+      <%= f.text_field :address %>
+    </div>
   </div>
 
   <div>
@@ -40,6 +52,11 @@
   </div>
 
   <div>
+    <%= f.label :parking do %>駐車場 <span class="required">*必須</span><% end %>
+    <%= f.select :parking, [["あり", "available"], ["なし", "unavailable"]], include_blank: "選択してください" %>
+  </div>
+
+  <div>
     <%= f.label :min_age, "対象年齢（何歳から）" %>
     <%= f.select :min_age, (0..15).to_a, { include_blank: true } %>
   </div>
@@ -50,20 +67,20 @@
   </div> 
 
   <div>
-    <%= f.label :adult_price, "大人料金" %>                           
-    <%= f.number_field :adult_price %> 円                                                                
+    <%= f.label :adult_price, "大人料金" %>
+    <%= f.number_field :adult_price %> 円
   </div>
 
   <div>
     <%= f.label :child_price, "子供料金" %>
-    <%= f.number_field :child_price %> 円                             
+    <%= f.number_field :child_price %> 円
   </div> 
 
   <div>
     <%= f.label :opening_time, "営業時間（開始）" %>
     <%= f.text_field :opening_time, list: "time_options" %>
-  </div>                                                              
-                                                                                                          
+  </div>
+
   <div>
     <%= f.label :closing_time, "営業時間（終了）" %>
     <%= f.text_field :closing_time, list: "time_options" %>
