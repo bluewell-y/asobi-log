@@ -3,7 +3,9 @@
 one:
   name: みどり公園
   description: 広い芝生の公園
-  address: 東京都渋谷区1-1
+  prefecture: 東京都
+  city: 渋谷区
+  address: 1-1
   category: 0
   indoor_outdoor: 1
   min_age: 0
@@ -15,7 +17,9 @@ one:
 two:
   name: キッズパーク
   description: 室内の遊び場
-  address: 東京都新宿区2-2
+  prefecture: 東京都
+  city: 新宿区
+  address: 2-2
   category: 1
   indoor_outdoor: 0
   min_age: 1

@@ -1,4 +1,8 @@
 class Place < ApplicationRecord
+  # 出典: geolonia/japanese-addresses（CC BY 4.0）https://github.com/geolonia/japanese-addresses
+  PREFECTURES_CITIES = JSON.parse(File.read(Rails.root.join("db/data/prefectures_cities.json"))).freeze
+  PREFECTURES = PREFECTURES_CITIES.keys.freeze
+
   CATEGORY_LABELS = {
     "park" => "公園",
     "indoor_facility" => "室内施設",
@@ -49,6 +53,9 @@ class Place < ApplicationRecord
   validates :cover_image, presence: true
   validates :category, presence: true
   validates :indoor_outdoor, presence: true
+  validates :prefecture, presence: true, inclusion: {in: PREFECTURES}
+  validates :city, presence: true
+  validate :city_belongs_to_prefecture
   validates :parking, presence: true
 
   scope :keyword_search, ->(keyword) {
@@ -72,6 +79,10 @@ class Place < ApplicationRecord
     PARKING_LABELS[parking]
   end
 
+  def self.cities_for(prefecture)
+    PREFECTURES_CITIES.fetch(prefecture, [])
+  end
+
   def fee_text
     parts = []
     parts << "大人 #{adult_price}円" if adult_price.present?
@@ -91,5 +102,19 @@ class Place < ApplicationRecord
     lower = min_age.present? ? "#{min_age}歳" : ""
     upper = max_age.present? ? "#{max_age}歳" : "年齢上限なし"
     "#{lower}〜#{upper}"
+  end
+
+  def full_address
+    "#{prefecture}#{city}#{address}"
+  end
+
+  private
+
+  def city_belongs_to_prefecture
+    return if prefecture.blank? || city.blank?
+
+    unless self.class::PREFECTURES_CITIES.fetch(prefecture, []).include?(city)
+      errors.add(:city, :invalid)
+    end
   end
 end

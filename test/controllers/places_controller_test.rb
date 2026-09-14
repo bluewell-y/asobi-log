@@ -6,7 +6,9 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
   def create_place(owner)
     place = owner.places.build(
       name: "所有テスト遊び場",
-      address: "東京都テスト区1-1",
+      prefecture: "東京都",
+      city: "渋谷区",
+      address: "1-1",
       category: "park",
       indoor_outdoor: "outdoor"
     )
@@ -55,7 +57,9 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_difference "Place.count", 1 do
       post places_path, params: {place: {
         name: "新しい遊び場",
-        address: "東京都新宿区2-2",
+        prefecture: "東京都",
+        city: "新宿区",
+        address: "2-2",
         category: "museum",
         indoor_outdoor: "indoor",
         cover_image: cover_upload

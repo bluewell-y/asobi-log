@@ -31,7 +31,7 @@
   </dialog>
 </div>
 
-<p>住所：<%= @place.address %></p>
+<p>住所：<%= @place.full_address %></p>
 <% if (map_url = place_map_embed_url(@place)) %>
   <div class="place-map">
     <iframe src="<%= map_url %>" loading="lazy" allowfullscreen title="<%= @place.name %>の地図"></iframe>

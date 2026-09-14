@@ -13,7 +13,7 @@ module PlacesHelper
 
     query = {
       key: ENV["GOOGLE_MAPS_API_KEY"],
-      q: place.address,
+      q: place.full_address,
       language: "ja",
       region: "JP"
     }
