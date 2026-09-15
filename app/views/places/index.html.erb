@@ -56,11 +56,12 @@
         <span>口コミ <%= place.reviews_count %>件</span>
       </p>
 
-      <div class="place-card-stats">
+      <div class="place-card-stats">                                              
         <span>駐車場<%= place.parking_label %></span>
         <% if place.age_range_text %><span><%= place.age_range_text %></span><% end %>
-        <% if place.fee_text %><span><%= place.fee_text %></span><% end %>
-        <% if place.business_hours_text %><span><%= place.business_hours_text %></span><% end %>
+        <% place.tags.each do |tag| %>
+          <span><%= tag.name %></span>
+        <% end %>
       </div>
 
       <%= link_to "くわしく見る", place_path(place), class: "place-card-btn" %>
