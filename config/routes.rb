@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   delete "places/:id/sub_images/:attachment_id", to: "places#remove_sub_image", as: :remove_sub_image
   resources :favorites, only: [:index]
   resources :visits, only: [:index]
-  resources :users, only: [:new, :create]
+  resources :reviews, only: [:index]
+  resources :users, only: [:new, :create, :show]
   get "mypage", to: "users#mypage"
   get "mypage/edit", to: "users#edit", as: "edit_mypage"
   patch "mypage", to: "users#update"

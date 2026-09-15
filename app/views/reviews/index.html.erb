@@ -1,0 +1,12 @@
+<h1>投稿した口コミ</h1>
+
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <%= link_to "#{review.place.name}／#{review.rating_label}", edit_place_review_path(review.place, review)
+%>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "マイページに戻る", mypage_path, class: "btn" %>

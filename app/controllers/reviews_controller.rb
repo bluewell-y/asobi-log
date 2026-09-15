@@ -1,8 +1,12 @@
 class ReviewsController < ApplicationController
   before_action :require_login
-  before_action :set_place
+  before_action :set_place, except: [:index]
   before_action :set_review, only: [:edit, :update, :destroy]
   before_action :require_author, only: [:edit, :update, :destroy]
+
+  def index
+    @reviews = current_user.reviews.includes(:place).order(created_at: :desc)
+  end
 
   def new
     @review = @place.reviews.new
