@@ -94,7 +94,7 @@
 <ul>
   <% @place.reviews.includes(:user).order(created_at: :desc).each do |review| %>
     <li>
-      <p class="review-rating"><%= ["星なし", "★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★"][review.rating] %></p>
+      <p class="review-rating"><%= review.rating_label %></p>
       <% if review.comment.present? %>
         <p class="review-comment"><%= review.comment %></p>
       <% end %>

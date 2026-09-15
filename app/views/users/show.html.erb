@@ -1,0 +1,25 @@
+<h1><%= @user.nickname %>さんの公開ページ</h1>
+
+<% if logged_in? && current_user == @user %>
+  <%= link_to "マイページへ", mypage_path, class: "btn" %>
+<% end %>
+
+<h2>登録した遊び場</h2>
+<ul>
+  <% @places.each do |place| %>
+    <li><%= link_to place.name, place_path(place) %></li>
+  <% end %>
+</ul>
+
+<h2>投稿した口コミ</h2>
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <p><%= link_to review.place.name, place_path(review.place) %></p>
+      <p class="review-rating"><%= review.rating_label %></p>
+      <% if review.comment.present? %>
+        <p class="review-comment"><%= review.comment %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
