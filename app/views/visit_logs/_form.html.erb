@@ -1,3 +1,9 @@
+<div class="place-summary">
+  <% if @place.cover_image.attached? %>
+    <%= image_tag @place.cover_image.variant(resize_to_fill: [620, 336]), class: "place-cover-image" %>
+  <% end %>
+</div>
+
 <h1><%= @place.name %>の訪問記録<%= @visit_log.persisted? ? "を編集する" : "をつける" %></h1>
 
 <%= form_with model: @visit_log, url: @visit_log.persisted? ? place_visit_log_path(@place, @visit_log) : place_visit_logs_path(@place) do |f| %>
