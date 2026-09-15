@@ -53,7 +53,7 @@
   <p class="place-tags-text">その他：<%= @place.tags.map(&:name).join("、") %></p>
 <% end %>
 <p>説明：<%= @place.description %></p>
-<p>登録者：<%= @place.user.nickname %></p>
+<p>登録者：<%= link_to @place.user.nickname, user_path(@place.user) %></p>
 <p>最終更新日：<%= @place.updated_at.strftime("%Y年%m月%d日") %></p>
 
 <% if logged_in? %>
@@ -98,7 +98,7 @@
       <% if review.comment.present? %>
         <p class="review-comment"><%= review.comment %></p>
       <% end %>
-      <p class="review-author">投稿者：<%= review.user.nickname %></p>
+      <p class="review-author">投稿者：<%= link_to review.user.nickname, user_path(review.user) %></p>
 
       <% if logged_in? && review.user == current_user %>
         <%= link_to "編集する", edit_place_review_path(@place, review), class: "btn btn--owner btn--sm" %>
