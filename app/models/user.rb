@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :visits, dependent: :destroy
   has_many :visited_places, through: :visits, source: :place
   has_many :reviews, dependent: :destroy
+  has_many :visit_logs, dependent: :destroy
 
   validates :name, presence: true
   validates :nickname, presence: true, uniqueness: true

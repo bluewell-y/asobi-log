@@ -37,6 +37,8 @@ ja:
       user: 会員情報
       place: 遊び場
       review: 口コミ
+      visit_log: 訪問記録
+
     attributes:
       user:
         name: 名前
@@ -58,3 +60,10 @@ ja:
       review:
         rating: 評価
         comment: コメント
+      visit_log:
+        visited_on: 訪問日
+        weather: 天気
+        satisfaction: 満足度
+        companion: 同行者
+        memo: メモ
+        photos: 写真

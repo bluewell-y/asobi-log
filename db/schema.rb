@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_09_14_210500) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_15_135039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,6 +113,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_14_210500) do
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
+  create_table "visit_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "place_id", null: false
+    t.date "visited_on", null: false
+    t.integer "weather", null: false
+    t.integer "satisfaction", null: false
+    t.string "companion"
+    t.text "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_visit_logs_on_place_id"
+    t.index ["user_id"], name: "index_visit_logs_on_user_id"
+  end
+
   create_table "visits", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "place_id", null: false
@@ -133,6 +147,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_14_210500) do
   add_foreign_key "places", "users"
   add_foreign_key "reviews", "places"
   add_foreign_key "reviews", "users"
+  add_foreign_key "visit_logs", "places"
+  add_foreign_key "visit_logs", "users"
   add_foreign_key "visits", "places"
   add_foreign_key "visits", "users"
 end
