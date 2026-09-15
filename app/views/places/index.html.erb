@@ -25,6 +25,27 @@
     <%= f.number_field :age, value: params[:age], class: "search-field-age" %>
   </div>
 
+  <div class="location-filter-group"
+       data-controller="prefecture-city"
+       data-prefecture-city-cities-value="<%= Place::PREFECTURES_CITIES.to_json %>"
+       data-prefecture-city-blank-label-value="すべて">
+    <div>
+      <%= f.label :prefecture, "都道府県" %>
+      <%= f.select :prefecture, Place::PREFECTURES, { include_blank: "すべて", selected: params[:prefecture] }, { data: { prefecture_city_target: "prefecture", action: "change->prefecture-city#updateCities" } } %>
+    </div>
+
+    <div>
+      <%= f.label :city, "市区町村" %>
+      <%= f.select :city, Place.cities_for(params[:prefecture]), { include_blank: "すべて" }, { data: { prefecture_city_target: "city", selected: params[:city] } } %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :parking, "駐車場" %>                                       
+    <%= f.select :parking, [["あり", "available"], ["なし", "unavailable"]], { include_blank: "すべて", selected:
+  params[:parking] } %>
+  </div>
+
   <div class="tag-filter-field"
        data-controller="tag-picker"
        data-tag-picker-tag-names-value="<%= Tag.order(:id).pluck(:id, :name).to_h.to_json %>"

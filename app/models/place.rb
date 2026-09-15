@@ -60,18 +60,17 @@ class Place < ApplicationRecord
   validate :city_belongs_to_prefecture
   validates :parking, presence: true
 
-  scope :keyword_search, ->(keyword) {
-    where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present?
-  }
+  scope :keyword_search, ->(keyword) { where("name ILIKE :kw OR description ILIKE :kw", kw: "%#{sanitize_sql_like(keyword)}%") if keyword.present? }
   scope :by_category, ->(category) { where(category: category) if category.present? }
   scope :by_indoor_outdoor, ->(io) { where(indoor_outdoor: io) if io.present? }
+  scope :for_age, ->(age) { where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present? }
   scope :by_tags, ->(tag_ids) {
     tag_ids = Array(tag_ids).reject(&:blank?)
     joins(:place_tags).where(place_tags: {tag_id: tag_ids}).distinct if tag_ids.present?
   }
-  scope :for_age, ->(age) {
-    where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
-  }
+  scope :by_prefecture, ->(prefecture) { where(prefecture: prefecture) if prefecture.present? }
+  scope :by_city, ->(city) { where(city: city) if city.present? }
+  scope :by_parking, ->(parking) { where(parking: parking) if parking.present? }
 
   def category_label
     CATEGORY_LABELS[category]
