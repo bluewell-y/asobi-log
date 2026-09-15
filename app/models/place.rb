@@ -65,6 +65,10 @@ class Place < ApplicationRecord
   }
   scope :by_category, ->(category) { where(category: category) if category.present? }
   scope :by_indoor_outdoor, ->(io) { where(indoor_outdoor: io) if io.present? }
+  scope :by_tags, ->(tag_ids) {
+    tag_ids = Array(tag_ids).reject(&:blank?)
+    joins(:place_tags).where(place_tags: {tag_id: tag_ids}).distinct if tag_ids.present?
+  }
   scope :for_age, ->(age) {
     where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
   }

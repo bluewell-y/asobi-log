@@ -92,15 +92,22 @@
     <% end %>
   </datalist>
 
-  <div data-controller="tag-picker"                                           
-       data-tag-picker-tag-names-value="<%= Tag.order(:id).pluck(:id, :name).to_h.to_json %>">
+  <div data-controller="tag-picker"
+       data-tag-picker-tag-names-value="<%= Tag.order(:id).pluck(:id, :name).to_h.to_json %>"
+       data-tag-picker-field-name-value="place[tag_ids][]">
     <%= f.label :tag_ids, "その他" %>
-    <select multiple size="6" data-tag-picker-target="select" data-action="change->tag-picker#sync">
-      <% Tag.order(:id).each do |tag| %>
-        <option value="<%= tag.id %>" <%= "selected" if @place.tag_ids.include?(tag.id) %>><%= tag.name %></option>
-      <% end %>
-    </select>
-    <p class="field-hint">パソコンの場合、Ctrlキー（Macは⌘キー）を押しながらクリックすると複数選択できます。</p>
+    <details class="tag-filter-details" data-tag-picker-target="details">
+      <summary class="tag-filter-summary"><span data-tag-picker-target="summaryText">選択してください</span></summary>
+      <div class="tag-filter-panel">
+        <select multiple size="6" data-tag-picker-target="select" data-action="change->tag-picker#sync">
+          <% Tag.order(:id).each do |tag| %>
+            <option value="<%= tag.id %>" <%= "selected" if @place.tag_ids.include?(tag.id) %>><%= tag.name %></option>
+          <% end %>
+        </select>
+        <p class="field-hint">パソコンの場合、Ctrlキー（Macは⌘キー）を押しながらクリックすると複数選択できます。</p>
+        <button type="button" class="btn btn--sm tag-filter-ok" data-action="tag-picker#apply">OK</button>
+      </div>
+    </details>
 
     <div data-tag-picker-target="chips" class="tag-chip-list"></div>
 

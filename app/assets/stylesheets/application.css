@@ -305,9 +305,20 @@ textarea {
   margin-bottom: 0;
 }
 
-.search-form input,
-.search-form select {
+.search-field-keyword {
   max-width: 200px;
+}
+
+.search-field-category {
+  max-width: 160px;
+}
+
+.search-field-indoor-outdoor {
+  max-width: 120px;
+}
+
+.search-field-age {
+  max-width: 100px;
 }
 
 .search-form input[type="submit"] {
@@ -530,6 +541,57 @@ hr {
 
 .tag-chip-remove:hover {
   background: #e56b52;
+}
+
+.tag-filter-details {
+  position: relative;
+}
+
+.tag-filter-field {
+  flex-basis: 100%;
+}
+
+.tag-filter-summary {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border: 1px solid #cfe3e8;
+  border-radius: 16px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+  background: var(--alog-surface);
+  list-style: none;
+}
+
+.search-form .tag-filter-summary {
+  max-width: 200px;
+}
+
+.tag-filter-summary::-webkit-details-marker {
+  display: none;
+}
+
+.tag-filter-details[open] .tag-filter-summary {
+  border-color: var(--alog-accent-bg);
+}
+
+.tag-filter-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  background: var(--alog-surface);
+  border: 1px solid #cfe3e8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: var(--alog-shadow);
+  min-width: 200px;
+}
+
+.tag-filter-ok {
+  margin-top: 8px;
 }
 
 /* 詳細ページ：画像クリックで全体像を拡大表示するライトボックス */
