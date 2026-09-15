@@ -2,26 +2,48 @@
 <%= form_with url: places_path, method: :get, class: "search-form" do |f| %>
   <div>
     <%= f.label :keyword, "キーワード" %>
-    <%= f.text_field :keyword, value: params[:keyword] %>
+    <%= f.text_field :keyword, value: params[:keyword], class: "search-field-keyword" %>
   </div>
 
   <div>
     <%= f.label :category, "カテゴリー" %>
     <%= f.select :category,
-          [["すべて", ""], ["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"], ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]],
-          selected: params[:category] %>
+          [["すべて", ""], ["公園", "park"], ["室内施設", "indoor_facility"], ["博物館・科学館", "museum"],
+  ["水族館・動物園", "aquarium_zoo"], ["その他", "other"]],
+          {selected: params[:category]}, {class: "search-field-category"} %>
   </div>
 
   <div>
     <%= f.label :indoor_outdoor, "屋内/屋外" %>
     <%= f.select :indoor_outdoor,
           [["すべて", ""], ["屋内", "indoor"], ["屋外", "outdoor"], ["両方", "both"]],
-          selected: params[:indoor_outdoor] %>
+          {selected: params[:indoor_outdoor]}, {class: "search-field-indoor-outdoor"} %>
   </div>
 
   <div>
     <%= f.label :age, "対象年齢" %>
-    <%= f.number_field :age, value: params[:age] %>
+    <%= f.number_field :age, value: params[:age], class: "search-field-age" %>
+  </div>
+
+  <div class="tag-filter-field"
+       data-controller="tag-picker"
+       data-tag-picker-tag-names-value="<%= Tag.order(:id).pluck(:id, :name).to_h.to_json %>"
+       data-tag-picker-field-name-value="tag_ids[]">
+    <%= f.label :tag_ids, "その他" %>
+    <details class="tag-filter-details" data-tag-picker-target="details">
+      <summary class="tag-filter-summary"><span data-tag-picker-target="summaryText">選択してください</span></summary>
+      <div class="tag-filter-panel">
+        <select multiple size="6" data-tag-picker-target="select" data-action="change->tag-picker#sync">
+          <% Tag.order(:id).each do |tag| %>
+            <option value="<%= tag.id %>" <%= "selected" if params[:tag_ids]&.include?(tag.id.to_s) %>><%= tag.name %></option>
+          <% end %>
+        </select>
+        <p class="field-hint">パソコンの場合は、Ctrlキー（Macは⌘キー）を押しながらクリックすると複数選択できます</p>
+        <button type="button" class="btn btn--sm tag-filter-ok" data-action="tag-picker#apply">OK</button>
+      </div>
+    </details>
+    <div data-tag-picker-target="chips" class="tag-chip-list"></div>
+    <div data-tag-picker-target="hiddenFields"></div>
   </div>
 
   <%= f.submit "検索する" %>
@@ -56,11 +78,12 @@
         <span>口コミ <%= place.reviews_count %>件</span>
       </p>
 
-      <div class="place-card-stats">
+      <div class="place-card-stats">                                              
         <span>駐車場<%= place.parking_label %></span>
         <% if place.age_range_text %><span><%= place.age_range_text %></span><% end %>
-        <% if place.fee_text %><span><%= place.fee_text %></span><% end %>
-        <% if place.business_hours_text %><span><%= place.business_hours_text %></span><% end %>
+        <% place.tags.each do |tag| %>
+          <span><%= tag.name %></span>
+        <% end %>
       </div>
 
       <%= link_to "くわしく見る", place_path(place), class: "place-card-btn" %>

@@ -5,10 +5,12 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.with_attached_cover_image
+      .includes(:tags)
       .keyword_search(params[:keyword])
       .by_category(params[:category])
       .by_indoor_outdoor(params[:indoor_outdoor])
       .for_age(params[:age])
+      .by_tags(params[:tag_ids])
 
     # 一覧カードに表示する状態マーク用（未ログイン時は空）
     @favorite_place_ids = logged_in? ? current_user.favorite_places.ids : []
@@ -66,7 +68,7 @@ class PlacesController < ApplicationController
   end
 
   def place_params
-    params.require(:place).permit(:name, :cover_image, :address, :prefecture, :city, :description, :category, :indoor_outdoor, :parking, :min_age, :max_age, :adult_price, :child_price, :opening_time, :closing_time, sub_images: [])
+    params.require(:place).permit(:name, :cover_image, :address, :prefecture, :city, :description, :category, :indoor_outdoor, :parking, :min_age, :max_age, :adult_price, :child_price, :opening_time, :closing_time, sub_images: [], tag_ids: [])
   end
 
   # 編集時、トップ画像を選び直さなかった場合は既存の添付を消さないようにする。

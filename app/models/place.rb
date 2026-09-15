@@ -28,6 +28,8 @@ class Place < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :place_tags, dependent: :destroy
+  has_many :tags, through: :place_tags
 
   enum :category, {
     park: 0,             # 公園
@@ -63,6 +65,10 @@ class Place < ApplicationRecord
   }
   scope :by_category, ->(category) { where(category: category) if category.present? }
   scope :by_indoor_outdoor, ->(io) { where(indoor_outdoor: io) if io.present? }
+  scope :by_tags, ->(tag_ids) {
+    tag_ids = Array(tag_ids).reject(&:blank?)
+    joins(:place_tags).where(place_tags: {tag_id: tag_ids}).distinct if tag_ids.present?
+  }
   scope :for_age, ->(age) {
     where("(min_age IS NULL OR min_age <= :age) AND (max_age IS NULL OR max_age >= :age)", age: age) if age.present?
   }
