@@ -11,6 +11,9 @@ class PlacesController < ApplicationController
       .by_indoor_outdoor(params[:indoor_outdoor])
       .for_age(params[:age])
       .by_tags(params[:tag_ids])
+      .by_prefecture(params[:prefecture])
+      .by_city(params[:city])
+      .by_parking(params[:parking])
 
     # 一覧カードに表示する状態マーク用（未ログイン時は空）
     @favorite_place_ids = logged_in? ? current_user.favorite_places.ids : []

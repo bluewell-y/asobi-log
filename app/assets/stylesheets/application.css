@@ -305,6 +305,11 @@ textarea {
   margin-bottom: 0;
 }
 
+.location-filter-group {
+  display: flex;
+  gap: 12px;
+}
+
 .search-field-keyword {
   max-width: 200px;
 }
