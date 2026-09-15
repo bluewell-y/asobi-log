@@ -1,0 +1,62 @@
+<h1><%= @place.name %>の訪問記録<%= @visit_log.persisted? ? "を編集する" : "をつける" %></h1>
+
+<%= form_with model: @visit_log, url: @visit_log.persisted? ? place_visit_log_path(@place, @visit_log) : place_visit_logs_path(@place) do |f| %>
+  <% if @visit_log.errors.any? %>
+    <div>
+      <ul>
+        <% error_messages_in_form_order(@visit_log, %i[visited_on weather satisfaction companion memo photos]).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :visited_on do %>訪問日 <span class="required">*必須</span><% end %>
+    <%= f.date_field :visited_on %>
+  </div>
+
+  <div>
+    <%= f.label :weather do %>天気 <span class="required">*必須</span><% end %>
+    <%= f.select :weather, [["晴れ", "sunny"], ["曇り", "cloudy"], ["雨", "rainy"]], include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :satisfaction do %>満足度 <span class="required">*必須</span><% end %>
+    <%= f.select :satisfaction, [["たいへんよい", "excellent"], ["よい", "good"], ["ふつう", "normal"], ["微妙", "poor"], ["悪い", "bad"]], include_blank: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :companion, "同行者" %>
+    <%= f.text_field :companion %>
+  </div>
+
+  <div>
+    <%= f.label :memo, "メモ" %>
+    <%= f.text_area :memo %>
+  </div>
+
+  <div data-controller="image-preview">
+    <%= f.label :photos, "写真（3枚まで）" %>
+    <%= f.file_field :photos, multiple: true, accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#update" } %>
+
+    <% if @visit_log.persisted? && @visit_log.photos.attached? %>
+      <div class="place-gallery">
+        <% @visit_log.photos.each do |photo| %>
+          <div class="sub-image-item">
+            <%= image_tag photo.variant(resize_to_fill: [90, 90]), class: "place-gallery-img" %>
+            <div class="sub-image-delete">
+              <%= button_to "×", remove_visit_log_photo_path(@place, @visit_log, photo.id), method: :delete, class: "sub-image-delete-btn", form: { data: { turbo_confirm: "この写真を削除しますか？" } } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div data-image-preview-target="gallery" class="place-gallery"></div>
+  </div>
+
+  <%= f.submit @visit_log.persisted? ? "更新する" : "記録する" %>
+<% end %>
+
+<%= link_to "詳細ページに戻る", place_path(@place) %>

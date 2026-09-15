@@ -1,0 +1,44 @@
+<% if @place %>
+  <h1><%= @place.name %>の訪問記録</h1>
+  <%= link_to "新しく記録する", new_place_visit_log_path(@place) %>
+
+  <ul>
+    <% @visit_logs.each do |visit_log| %>
+      <li>
+        <p><%= visit_log.visited_on %>／<%= visit_log.weather_label %>／<%= visit_log.satisfaction_label %></p>
+        <% if visit_log.companion.present? %>
+          <p>同行者：<%= visit_log.companion %></p>
+        <% end %>
+        <% if visit_log.memo.present? %>
+          <p><%= visit_log.memo %></p>
+        <% end %>
+        <% if visit_log.photos.attached? %>
+          <div class="place-gallery">
+            <% visit_log.photos.each do |photo| %>
+              <%= image_tag photo.variant(resize_to_fill: [90, 90]), class: "place-gallery-img" %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to "編集する", edit_place_visit_log_path(@place, visit_log), class: "btn btn--owner btn--sm"
+%>
+        <%= button_to "削除する", place_visit_log_path(@place, visit_log), method: :delete, class: "btn--owner
+btn--sm", data: { turbo_confirm: "本当に削除しますか？" } %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to "詳細ページに戻る", place_path(@place), class: "btn" %>
+<% else %>
+  <h1>訪問履歴</h1>
+
+  <ul>
+    <% @visit_logs.each do |visit_log| %>
+      <li>
+        <%= link_to "#{visit_log.place.name}／#{visit_log.visited_on}",
+edit_place_visit_log_path(visit_log.place, visit_log) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to "マイページに戻る", mypage_path, class: "btn" %>
+<% end %>

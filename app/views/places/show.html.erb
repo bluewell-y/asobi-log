@@ -68,6 +68,12 @@
   <% else %>
     <%= button_to "行った！", place_visit_path(@place), method: :post %>
   <% end %>
+
+  <% if current_user.visit_logs.exists?(place: @place) %>
+    <%= link_to "訪問記録", place_visit_logs_path(@place), class: "btn" %>
+  <% else %>
+    <%= link_to "訪問記録", new_place_visit_log_path(@place), class: "btn" %>
+  <% end %>
 <% end %>
 
 <% if logged_in? %>
