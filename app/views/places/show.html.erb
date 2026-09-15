@@ -49,6 +49,9 @@
 <% if @place.business_hours_text %>
   <p>営業時間：<%= @place.business_hours_text %></p>
 <% end %>
+<% if @place.tags.any? %>                                                   
+  <p class="place-tags-text">その他：<%= @place.tags.map(&:name).join("、") %></p>
+<% end %>
 <p>説明：<%= @place.description %></p>
 <p>登録者：<%= @place.user.nickname %></p>
 <p>最終更新日：<%= @place.updated_at.strftime("%Y年%m月%d日") %></p>

@@ -5,6 +5,7 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.with_attached_cover_image
+      .includes(:tags)
       .keyword_search(params[:keyword])
       .by_category(params[:category])
       .by_indoor_outdoor(params[:indoor_outdoor])
