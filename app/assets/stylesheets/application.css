@@ -381,6 +381,29 @@ ul li {
   color: var(--alog-accent2);
 }
 
+/* 削除申請中バッジ */
+.deletion-request-notice {
+  display: inline-block; 
+  background: #d9534f;
+  color: #ffffff;
+  border-radius: 4px;
+  font-weight: bold;
+} 
+
+/* 一覧カード用のサイズ */
+.deletion-request-notice--card {
+  padding: 4px 12px;
+  font-size: 13px;
+  margin: 4px 0 8px;
+} 
+
+/* 詳細ページ用のサイズ */
+.deletion-request-notice--detail {
+  padding: 8px 16px;
+  font-size: 16px;
+  margin: 4px 0 4px;
+}
+
 ul li a {
   font-family: var(--alog-font-head);
   font-weight: 400;

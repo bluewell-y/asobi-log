@@ -17,9 +17,11 @@ class PlacesController < ApplicationController
     # 一覧カードに表示する状態マーク用（未ログイン時は空）
     @favorite_place_ids = logged_in? ? current_user.favorite_places.ids : []
     @visited_place_ids = logged_in? ? current_user.visited_places.ids : []
+    @pending_deletion_place_ids = DeletionRequest.pending.pluck(:place_id)
   end
 
   def show
+    @pending_deletion_request = @place.pending_deletion_request
   end
 
   def new

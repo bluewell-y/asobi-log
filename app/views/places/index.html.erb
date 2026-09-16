@@ -90,6 +90,10 @@
 
       <h3 class="place-card-name"><%= link_to place.name, place_path(place) %></h3>
 
+      <% if @pending_deletion_place_ids.include?(place.id) %>
+        <p class="deletion-request-notice deletion-request-notice--card">削除申請中</p>
+      <% end %>
+
       <% if place.cover_image.attached? %>
         <div class="place-thumb"><%= image_tag place.cover_image.variant(resize_to_fill: [400, 200]) %></div>
       <% end %>
