@@ -7,6 +7,15 @@ Rails.application.routes.draw do
     resources :deletion_requests, only: [:new, :create]
   end
 
+  namespace :admin do
+    resources :deletion_requests, only: [:index] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+  end
+
   delete "places/:place_id/visit_logs/:visit_log_id/photos/:attachment_id", to: "visit_logs#remove_photo", as: :remove_visit_log_photo
   resources :visit_logs, only: [:index]
 

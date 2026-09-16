@@ -1,0 +1,15 @@
+<h1>削除申請の管理</h1>
+
+<ul>
+  <% @deletion_requests.each do |deletion_request| %>
+    <li>
+      <p><%= link_to deletion_request.place.name, place_path(deletion_request.place) %></p>
+      <p>申請者：<%= deletion_request.user.nickname %></p>
+      <p>理由：<%= deletion_request.reason %></p>
+      <p>申請日：<%= deletion_request.created_at.strftime("%Y年%m月%d日") %></p>
+
+      <%= button_to "承認する（削除実行）", approve_admin_deletion_request_path(deletion_request), method: :patch, class: "btn--owner", data: { turbo_confirm: "本当に削除しますか？この操作は取り消せません" } %>
+      <%= button_to "却下する", reject_admin_deletion_request_path(deletion_request), method: :patch %>
+    </li>
+  <% end %>
+</ul>
