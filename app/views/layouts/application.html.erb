@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AsobiLog</title>
+    <title><%= content_for(:og_title) || "あそびログ" %></title>                                            
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    <meta property="og:title" content="<%= content_for(:og_title) || "あそびログ" %>">
+    <meta property="og:description" content="<%= content_for(:og_description) || "あそび場さがし＆記録アプリ" %>">
+    <meta property="og:image" content="<%= content_for(:og_image) || image_url("ogp_default.png") %>">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="あそびログ">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
