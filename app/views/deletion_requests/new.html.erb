@@ -1,0 +1,22 @@
+<h1><%= @place.name %>の削除を申請する</h1>
+
+<%= form_with model: @deletion_request, url: place_deletion_requests_path(@place) do |f| %>
+  <% if @deletion_request.errors.any? %>
+    <div>
+      <ul>
+        <% @deletion_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :reason do %>削除理由 <span class="required">*必須</span><% end %>
+    <%= f.text_area :reason %>
+  </div>
+
+  <%= f.submit "申請する" %>
+<% end %>
+
+<%= link_to "詳細ページに戻る", place_path(@place) %>

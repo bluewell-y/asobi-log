@@ -31,6 +31,7 @@ class Place < ApplicationRecord
   has_many :visit_logs, dependent: :destroy
   has_many :place_tags, dependent: :destroy
   has_many :tags, through: :place_tags
+  has_many :deletion_requests, dependent: :destroy
 
   enum :category, {
     park: 0,             # 公園
@@ -112,6 +113,10 @@ class Place < ApplicationRecord
 
   def full_address
     "#{prefecture}#{city}#{address}"
+  end
+
+  def pending_deletion_request
+    deletion_requests.pending.first
   end
 
   private

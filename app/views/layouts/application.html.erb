@@ -28,6 +28,9 @@
         <%= link_to "マイページ", mypage_path %>
         <%= link_to "お気に入り一覧", favorites_path %>
         <%= link_to "行った場所一覧", visits_path %>
+        <% if current_user.admin? %>
+          <%= link_to "管理画面", admin_deletion_requests_path %>
+        <% end %>
         <%= button_to "ログアウト", session_path, method: :delete %>
       <% else %>
         <%= link_to "ログイン", new_session_path %>

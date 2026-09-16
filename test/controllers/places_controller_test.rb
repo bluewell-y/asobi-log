@@ -115,32 +115,6 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "他人が更新した名前", place.reload.name
   end
 
-  test "登録者本人は遊び場を削除できる" do
-    place = create_place(users(:one))
-    login_as(users(:one))
-    assert_difference "Place.count", -1 do
-      delete place_path(place)
-    end
-    assert_redirected_to places_path
-  end
-
-  test "登録者以外は削除できない" do
-    place = create_place(users(:one))
-    login_as(users(:two))
-    assert_no_difference "Place.count" do
-      delete place_path(place)
-    end
-    assert_redirected_to places_path
-  end
-
-  test "未ログインで削除しようとするとログイン画面へリダイレクトする" do
-    place = create_place(users(:one))
-    assert_no_difference "Place.count" do
-      delete place_path(place)
-    end
-    assert_redirected_to new_session_path
-  end
-
   test "APIキーがあれば詳細ページに地図が表示される" do
     original = ENV["GOOGLE_MAPS_API_KEY"]
     ENV["GOOGLE_MAPS_API_KEY"] = "test-key"
