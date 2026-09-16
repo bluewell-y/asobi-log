@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_09_15_135039) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_16_133206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_15_135039) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "deletion_requests", force: :cascade do |t|
+    t.bigint "place_id", null: false
+    t.bigint "user_id", null: false
+    t.text "reason", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_deletion_requests_on_place_id"
+    t.index ["user_id"], name: "index_deletion_requests_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -109,6 +120,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_15_135039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nickname", null: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
@@ -140,6 +152,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_15_135039) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "deletion_requests", "places"
+  add_foreign_key "deletion_requests", "users"
   add_foreign_key "favorites", "places"
   add_foreign_key "favorites", "users"
   add_foreign_key "place_tags", "places"

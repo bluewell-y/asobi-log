@@ -38,6 +38,7 @@ ja:
       place: 遊び場
       review: 口コミ
       visit_log: 訪問記録
+      deletion_request: 削除申請
 
     attributes:
       user:
@@ -67,3 +68,5 @@ ja:
         companion: 同行者
         memo: メモ
         photos: 写真
+      deletion_request:
+        reason: 削除理由
