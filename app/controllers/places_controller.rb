@@ -1,7 +1,6 @@
 class PlacesController < ApplicationController
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :remove_sub_image]
-  before_action :set_place, only: [:show, :edit, :update, :destroy, :remove_sub_image]
-  before_action :require_owner, only: [:destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :remove_sub_image]
+  before_action :set_place, only: [:show, :edit, :update, :remove_sub_image]
 
   def index
     @places = Place.with_attached_cover_image
@@ -48,11 +47,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  def destroy
-    @place.destroy
-    redirect_to places_path, notice: "遊び場を削除しました"
-  end
-
   def remove_sub_image
     @place.sub_images_attachments.find(params[:attachment_id]).purge
     redirect_to edit_place_path(@place), notice: "参考画像を削除しました"
@@ -62,12 +56,6 @@ class PlacesController < ApplicationController
 
   def set_place
     @place = Place.find(params[:id])
-  end
-
-  def require_owner
-    unless @place.user == current_user
-      redirect_to places_path, alert: "この操作を行う権限がありません"
-    end
   end
 
   def place_params
