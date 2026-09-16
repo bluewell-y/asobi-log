@@ -6,7 +6,7 @@ class VisitLogsController < ApplicationController
 
   def index
     @visit_logs = if @place
-      current_user.visit_logs.where(place: @place).order(visited_on: :desc)
+      current_user.visit_logs.where(place: @place).includes(photos_attachments: :blob).order(visited_on: :desc)
     else
       current_user.visit_logs.includes(:place).order(visited_on: :desc)
     end

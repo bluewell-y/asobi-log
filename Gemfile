@@ -50,6 +50,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows]
   gem "standard", require: false
   gem "dotenv-rails"
+  gem "bullet"
 end
 
 group :development do
