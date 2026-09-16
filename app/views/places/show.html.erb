@@ -1,3 +1,7 @@
+<% content_for :og_title, @place.name %>
+<% content_for :og_description, truncate(@place.description, length: 100) %>
+<% content_for :og_image, url_for(@place.cover_image.variant(resize_to_fill: [1200, 630])) %>
+
 <h1><%= @place.name %></h1>
 
 <div data-controller="lightbox">
