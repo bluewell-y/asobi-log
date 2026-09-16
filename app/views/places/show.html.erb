@@ -60,6 +60,11 @@
 <p>登録者：<%= link_to @place.user.nickname, user_path(@place.user) %></p>
 <p>最終更新日：<%= @place.updated_at.strftime("%Y年%m月%d日") %></p>
 
+<div class="share-buttons">
+  <%= link_to "Xでシェア", "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@place.name)}", target: "_blank", rel: "noopener", class: "btn btn--sm" %>
+  <%= link_to "LINEでシェア", "https://social-plugins.line.me/lineit/share?url=#{CGI.escape(request.original_url)}", target: "_blank", rel: "noopener", class: "btn btn--sm" %>
+</div>
+
 <% if logged_in? %>
   <% if current_user.favorites.exists?(place: @place) %>
     <%= button_to "お気に入り解除", place_favorite_path(@place), method: :delete %>
