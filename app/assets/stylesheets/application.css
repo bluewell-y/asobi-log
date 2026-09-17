@@ -781,4 +781,49 @@ ul li a.place-card-btn:hover {
 
 .place-tags-text {
   max-width: 620px;
+} 
+
+/* 各項目のフォントを施設名(h1)と揃える（サイズは現状維持） */
+.place-info p {
+  font-family: var(--alog-font-head);
+  font-weight: 400;
+}
+
+/* お気に入り・行った・訪問記録をスクロールに追従させる */
+.place-action-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--alog-bg-start);
+  padding: 10px 0;
+}
+
+/* お気に入り・行った・訪問記録のボタンの調整 */
+.place-action-bar button,
+.place-action-bar .btn {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+/* シェアボタン（緑と黄緑の中間くらいの色） */
+.btn--share {
+  background: #8dc63f;
+}
+
+.btn--share:hover {
+  background: #79b02f;
+}
+
+/* シェアボタンの下の余白 */
+.share-buttons {
+  margin-bottom: 25px;
+}
+
+/* 編集する・削除を申請する・一覧に戻る のサイズ調整用 */
+.place-footer-btn {
+  padding: 8px 16px;  /* 上下・左右の余白。小さくするとボタンが小さくなる */
+  font-size: 14px; 
 }
