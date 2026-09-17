@@ -6,6 +6,28 @@
   <p class="deletion-request-notice deletion-request-notice--detail">削除申請中：<%= @pending_deletion_request.reason %></p>
 <% end %>
 
+<% if logged_in? %>
+  <div class="place-action-bar">
+    <% if current_user.favorites.exists?(place: @place) %>
+      <%= button_to "お気に入り解除", place_favorite_path(@place), method: :delete %>
+    <% else %>
+      <%= button_to "お気に入りに追加", place_favorite_path(@place), method: :post %>
+    <% end %>
+    
+    <% if current_user.visits.exists?(place: @place) %>
+      <%= button_to "「行った」を解除", place_visit_path(@place), method: :delete %>
+    <% else %>
+      <%= button_to "行った！", place_visit_path(@place), method: :post %>
+    <% end %>
+    
+    <% if current_user.visit_logs.exists?(place: @place) %>
+      <%= link_to "訪問記録", place_visit_logs_path(@place), class: "btn" %>
+    <% else %>
+      <%= link_to "訪問記録", new_place_visit_log_path(@place), class: "btn" %>
+    <% end %>
+  </div>
+<% end %>
+
 <h1><%= @place.name %></h1>
 
 <div data-controller="lightbox">
@@ -39,65 +61,47 @@
   </dialog>
 </div>
 
-<p>住所：<%= @place.full_address %></p>
-<% if (map_url = place_map_embed_url(@place)) %>
-  <div class="place-map">
-    <iframe src="<%= map_url %>" loading="lazy" allowfullscreen title="<%= @place.name %>の地図"></iframe>
+  <div class="place-info">
+    <p>住所：<%= @place.full_address %></p>
+    <% if (map_url = place_map_embed_url(@place)) %>
+      <div class="place-map">
+        <iframe src="<%= map_url %>" loading="lazy" allowfullscreen title="<%= @place.name %>の地図"></iframe>
+      </div>
+    <% end %>
+    <p>カテゴリー：<%= @place.category_label %></p>
+    <p>屋内/屋外：<%= @place.indoor_outdoor_label %></p>
+    <p>駐車場：<%= @place.parking_label %></p>
+    <% if @place.age_range_text %>
+      <p>対象年齢：<%= @place.age_range_text %></p>
+    <% end %>
+    <% if @place.fee_text %>
+      <p>料金：<%= @place.fee_text %></p>
+    <% end %>
+    <% if @place.business_hours_text %>
+      <p>営業時間：<%= @place.business_hours_text %></p>
+    <% end %>
+    <% if @place.tags.any? %>
+      <p class="place-tags-text">その他：<%= @place.tags.map(&:name).join("、") %></p>
+    <% end %>
+    <p>説明：<%= @place.description %></p>
+    <p>登録者：<%= link_to @place.user.nickname, user_path(@place.user) %></p>
+    <p>最終更新日：<%= @place.updated_at.strftime("%Y年%m月%d日") %></p>
   </div>
-<% end %>
-<p>カテゴリー：<%= @place.category_label %></p>
-<p>屋内/屋外：<%= @place.indoor_outdoor_label %></p>
-<p>駐車場：<%= @place.parking_label %></p>
-<% if @place.age_range_text %>
-  <p>対象年齢：<%= @place.age_range_text %></p>
-<% end %>
-<% if @place.fee_text %>
-  <p>料金：<%= @place.fee_text %></p>
-<% end %>
-<% if @place.business_hours_text %>
-  <p>営業時間：<%= @place.business_hours_text %></p>
-<% end %>
-<% if @place.tags.any? %>                                                   
-  <p class="place-tags-text">その他：<%= @place.tags.map(&:name).join("、") %></p>
-<% end %>
-<p>説明：<%= @place.description %></p>
-<p>登録者：<%= link_to @place.user.nickname, user_path(@place.user) %></p>
-<p>最終更新日：<%= @place.updated_at.strftime("%Y年%m月%d日") %></p>
 
 <div class="share-buttons">
-  <%= link_to "Xでシェア", "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@place.name)}", target: "_blank", rel: "noopener", class: "btn btn--sm" %>
-  <%= link_to "LINEでシェア", "https://social-plugins.line.me/lineit/share?url=#{CGI.escape(request.original_url)}", target: "_blank", rel: "noopener", class: "btn btn--sm" %>
+  <%= link_to "Xでシェア", "https://twitter.com/intent/tweet?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@place.name)}", target: "_blank", rel: "noopener", class: "btn btn--sm btn--share" %>
+  <%= link_to "LINEでシェア", "https://social-plugins.line.me/lineit/share?url=#{CGI.escape(request.original_url)}", target: "_blank", rel: "noopener", class: "btn btn--sm btn--share" %>
 </div>
 
 <% if logged_in? %>
-  <% if current_user.favorites.exists?(place: @place) %>
-    <%= button_to "お気に入り解除", place_favorite_path(@place), method: :delete %>
-  <% else %>
-    <%= button_to "お気に入りに追加", place_favorite_path(@place), method: :post %>
-  <% end %>
-
-  <% if current_user.visits.exists?(place: @place) %>
-    <%= button_to "「行った」を解除", place_visit_path(@place), method: :delete %>
-  <% else %>
-    <%= button_to "行った！", place_visit_path(@place), method: :post %>
-  <% end %>
-
-  <% if current_user.visit_logs.exists?(place: @place) %>
-    <%= link_to "訪問記録", place_visit_logs_path(@place), class: "btn" %>
-  <% else %>
-    <%= link_to "訪問記録", new_place_visit_log_path(@place), class: "btn" %>
-  <% end %>
+  <%= link_to "編集する", edit_place_path(@place), class: "btn btn--owner place-footer-btn" %>
 <% end %>
 
-<% if logged_in? %>
-  <%= link_to "編集する", edit_place_path(@place), class: "btn btn--owner" %>
+<% if logged_in? && !@pending_deletion_request %>
+  <%= link_to "削除を申請する", new_place_deletion_request_path(@place), class: "btn btn--owner place-footer-btn" %>
 <% end %>
-
-  <% if logged_in? && !@pending_deletion_request %>
-    <%= link_to "削除を申請する", new_place_deletion_request_path(@place), class: "btn btn--owner" %>
-  <% end %>
-
-<%= link_to "一覧に戻る", places_path, class: "btn" %>
+  
+<%= link_to "一覧に戻る", places_path, class: "btn place-footer-btn" %>
 
 <h2>口コミ <span class="review-count">（<%= @place.reviews_count %>件）</span></h2>
 <% if logged_in? %>
