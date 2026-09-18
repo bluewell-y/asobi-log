@@ -293,7 +293,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  gap: 12px;
+  gap: 15px 20px;
   background: var(--alog-surface);
   border-radius: var(--alog-radius);
   padding: 18px 20px;
@@ -307,23 +307,32 @@ textarea {
 
 .location-filter-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
+  flex-basis: 100%;
 }
 
-.search-field-keyword {
-  max-width: 200px;
+/* 検索フォームの各フィールドの最大幅を指定する */
+.search-form .search-field-keyword {
+  width: 200px;
+} 
+.search-form .search-field-category {
+  width: 160px;
+} 
+.search-form .search-field-indoor-outdoor {
+  width: 120px;
 }
-
-.search-field-category {
-  max-width: 160px;
+.search-form .search-field-age {
+  width: 100px;
 }
-
-.search-field-indoor-outdoor {
-  max-width: 120px;
+.search-form .search-field-parking {
+  width: 120px;
 }
-
-.search-field-age {
-  max-width: 100px;
+.search-form .search-field-prefecture {
+  width: 160px;
+}
+.search-form .search-field-city {
+  width: 160px;
 }
 
 .search-form input[type="submit"] {
@@ -471,7 +480,11 @@ hr {
   .search-form select {
     max-width: none;
     width: 100%;
-  }
+  } 
+  
+  .location-filter-group .tag-filter-field {                
+    flex-basis: 100%;
+  } 
 }
 
  /* トップ画像（メイン写真） */
@@ -582,6 +595,11 @@ hr {
 }
 
 .tag-filter-field {
+  flex: 0 0 400px;
+}
+
+.tag-chip-row {
+  flex-basis: 100%;
 }
 
 .tag-filter-summary {

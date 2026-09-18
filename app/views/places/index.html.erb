@@ -1,5 +1,5 @@
 <h1>遊び場一覧</h1>
-<%= form_with url: places_path, method: :get, class: "search-form" do |f| %>
+<%= form_with url: places_path, method: :get, class: "search-form", data: { controller: "tag-picker", tag_picker_tag_names_value: Tag.order(:id).pluck(:id, :name).to_h.to_json, tag_picker_field_name_value: "tag_ids[]" } do |f| %>
   <div>
     <%= f.label :keyword, "キーワード" %>
     <%= f.text_field :keyword, value: params[:keyword], class: "search-field-keyword" %>
@@ -25,48 +25,47 @@
     <%= f.number_field :age, value: params[:age], class: "search-field-age" %>
   </div>
 
+  <div>
+    <%= f.label :parking, "駐車場" %>
+    <%= f.select :parking, [["あり", "available"], ["なし", "unavailable"]], { include_blank: "すべて", selected: params[:parking] }, { class: "search-field-parking" } %>
+  </div>
+
   <div class="location-filter-group"
-       data-controller="prefecture-city"
-       data-prefecture-city-cities-value="<%= Place::PREFECTURES_CITIES.to_json %>"
-       data-prefecture-city-blank-label-value="すべて">
+        data-controller="prefecture-city"
+        data-prefecture-city-cities-value="<%= Place::PREFECTURES_CITIES.to_json %>"
+        data-prefecture-city-blank-label-value="すべて">
     <div>
       <%= f.label :prefecture, "都道府県" %>
-      <%= f.select :prefecture, Place::PREFECTURES, { include_blank: "すべて", selected: params[:prefecture] }, { data: { prefecture_city_target: "prefecture", action: "change->prefecture-city#updateCities" } } %>
+      <%= f.select :prefecture, Place::PREFECTURES, { include_blank: "すべて", selected: params[:prefecture] }, { class: "search-field-prefecture", data: { prefecture_city_target: "prefecture", action: "change->prefecture-city#updateCities" } } %>
     </div>
-
+    
     <div>
       <%= f.label :city, "市区町村" %>
-      <%= f.select :city, Place.cities_for(params[:prefecture]), { include_blank: "すべて" }, { data: { prefecture_city_target: "city", selected: params[:city] } } %>
+      <%= f.select :city, Place.cities_for(params[:prefecture]), { include_blank: "すべて" }, { class: "search-field-city", data: { prefecture_city_target: "city", selected: params[:city] } } %>
+    </div>
+    
+    <div class="tag-filter-field">
+      <%= f.label :tag_ids, "その他" %>
+      <details class="tag-filter-details" data-tag-picker-target="details">
+        <summary class="tag-filter-summary"><span data-tag-picker-target="summaryText">選択してください</span></summary>
+        <div class="tag-filter-panel">
+          <select multiple size="6" data-tag-picker-target="select" data-action="change->tag-picker#sync">
+            <% Tag.order(:id).each do |tag| %>
+              <option value="<%= tag.id %>" <%= "selected" if params[:tag_ids]&.include?(tag.id.to_s) %>><%= tag.name %></option>
+            <% end %>
+          </select>
+          <p class="field-hint">パソコンの場合は、Ctrlキー（Macは⌘キー）を押しながらクリックすると複数選択できます</p>
+          <button type="button" class="btn btn--sm tag-filter-ok" data-action="tag-picker#apply">OK</button>
+        </div>
+      </details>
     </div>
   </div>
-
-  <div>
-    <%= f.label :parking, "駐車場" %>                                       
-    <%= f.select :parking, [["あり", "available"], ["なし", "unavailable"]], { include_blank: "すべて", selected:
-  params[:parking] } %>
-  </div>
-
-  <div class="tag-filter-field"
-       data-controller="tag-picker"
-       data-tag-picker-tag-names-value="<%= Tag.order(:id).pluck(:id, :name).to_h.to_json %>"
-       data-tag-picker-field-name-value="tag_ids[]">
-    <%= f.label :tag_ids, "その他" %>
-    <details class="tag-filter-details" data-tag-picker-target="details">
-      <summary class="tag-filter-summary"><span data-tag-picker-target="summaryText">選択してください</span></summary>
-      <div class="tag-filter-panel">
-        <select multiple size="6" data-tag-picker-target="select" data-action="change->tag-picker#sync">
-          <% Tag.order(:id).each do |tag| %>
-            <option value="<%= tag.id %>" <%= "selected" if params[:tag_ids]&.include?(tag.id.to_s) %>><%= tag.name %></option>
-          <% end %>
-        </select>
-        <p class="field-hint">パソコンの場合は、Ctrlキー（Macは⌘キー）を押しながらクリックすると複数選択できます</p>
-        <button type="button" class="btn btn--sm tag-filter-ok" data-action="tag-picker#apply">OK</button>
-      </div>
-    </details>
+  
+  <div class="tag-chip-row">
     <div data-tag-picker-target="chips" class="tag-chip-list"></div>
     <div data-tag-picker-target="hiddenFields"></div>
   </div>
-
+  
   <div class="search-form-submit">
     <%= f.submit "検索する" %>
   </div>
@@ -105,7 +104,7 @@
         <span>口コミ <%= place.reviews_count %>件</span>
       </p>
 
-      <div class="place-card-stats">                                              
+      <div class="place-card-stats">
         <span>駐車場<%= place.parking_label %></span>
         <% if place.age_range_text %><span><%= place.age_range_text %></span><% end %>
         <% place.tags.each do |tag| %>
