@@ -543,6 +543,12 @@ hr {
   gap: 8px;
   margin-top: 8px;
 }
+
+/* タグを何も選んでいない（中身が空の）時は余白をつけない */
+.tag-chip-list:empty {
+  margin-top: 0;
+}
+
 .tag-chip {
   display: inline-flex;
   align-items: center;
@@ -576,7 +582,6 @@ hr {
 }
 
 .tag-filter-field {
-  flex-basis: 100%;
 }
 
 .tag-filter-summary {
@@ -826,4 +831,8 @@ ul li a.place-card-btn:hover {
 .place-footer-btn {
   padding: 8px 16px;  /* 上下・左右の余白。小さくするとボタンが小さくなる */
   font-size: 14px; 
+}
+
+.search-form-submit {
+  flex-basis: 100%;
 }
