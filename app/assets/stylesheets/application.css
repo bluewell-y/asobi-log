@@ -359,6 +359,11 @@ ul li {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* 検索フォームの条件をクリアするリンク */
+.search-form-clear {
+  font-size: 12px; 
+}
+
 /* 一覧サムネイル：画像がない時のカードの高さに収まる程度の小さめサイズにする */
 .place-thumb img {
   display: block;
