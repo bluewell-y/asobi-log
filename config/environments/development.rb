@@ -82,5 +82,11 @@ Rails.application.configure do
     Bullet.console = true
     Bullet.rails_logger = true
     Bullet.add_footer = true
+
+    # Active Storageの画像バリアント表示に伴う誤検知を除外する
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Attachment", association: :blob
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Blob", association: :variant_records
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Blob", association: :preview_image_attachment
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::VariantRecord", association: :image_attachment
   end
 end
