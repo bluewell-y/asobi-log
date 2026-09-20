@@ -67,5 +67,11 @@ Rails.application.configure do
     Bullet.enable = true
     Bullet.bullet_logger = true
     Bullet.raise = true
+
+    # Active Storageの画像バリアント表示に伴う誤検知（実際には必要な先読み）を除外する
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Attachment", association: :blob
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Blob", association: :variant_records
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::Blob", association: :preview_image_attachment
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "ActiveStorage::VariantRecord", association: :image_attachment
   end
 end
