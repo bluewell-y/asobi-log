@@ -3,7 +3,10 @@
 # idempotent so that it can be executed at any point in every environment.
 
 user = User.first || User.create!(
-  name: "テスト",
+  last_name: "テスト",
+  first_name: "太郎",
+  last_name_kana: "テスト",
+  first_name_kana: "タロウ",
   nickname: "テストくん",
   email: "test@example.com",
   password: "password123",

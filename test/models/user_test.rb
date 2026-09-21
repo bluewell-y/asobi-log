@@ -3,7 +3,10 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   def valid_user
     User.new(
-      name: "テストユーザー",
+      last_name: "山田",
+      first_name: "太郎",
+      last_name_kana: "ヤマダ",
+      first_name_kana: "タロウ",
       nickname: "テストにっく",
       email: "unique_test@example.com",
       password: "password123",
@@ -13,15 +16,45 @@ class UserTest < ActiveSupport::TestCase
     )
   end
 
-  test "name, nickname, email, passwordがあれば保存できる" do
+  test "姓名・フリガナ, nickname, email, passwordがあれば保存できる" do
     assert valid_user.valid?
   end
 
-  test "nameが空だと保存できない" do
-    user = valid_user
-    user.name = ""
-    assert_not user.valid?
-    assert user.errors.of_kind?(:name, :blank)
+  test "姓・名・セイ・メイが空だと保存できない" do
+    %i[last_name first_name last_name_kana first_name_kana].each do |attr|
+      user = valid_user
+      user[attr] = ""
+      assert_not user.valid?, "#{attr}が空でも保存できてしまった"
+      assert user.errors.of_kind?(attr, :blank)
+    end
+  end
+
+  test "姓・名にひらがな・カタカナ・漢字以外を入れると保存できない" do
+    ["Yamada", "山田 ", "山田1", "山 田"].each do |value|
+      user = valid_user
+      user.last_name = value
+      assert_not user.valid?, "「#{value}」は無効なはず"
+    end
+  end
+
+  test "姓・名にひらがな・カタカナ・漢字・長音を入れると保存できる" do
+    ["やまだ", "ヤマダ", "山田", "渡辺", "ジョー", "佐々木", "々"].each do |value|
+      user = valid_user
+      user.first_name = value
+      assert user.valid?, "「#{value}」は有効なはず"
+    end
+  end
+
+  test "セイ・メイは全角カタカナ以外だと保存できない" do
+    ["やまだ", "山田", "Yamada", "ﾔﾏﾀﾞ", "ヤマ ダ"].each do |value|
+      user = valid_user
+      user.last_name_kana = value
+      assert_not user.valid?, "「#{value}」は無効なはず"
+    end
+  end
+
+  test "full_nameは姓と名をスペースでつなぐ" do
+    assert_equal "山田 太郎", valid_user.full_name
   end
 
   test "nicknameが空だと保存できない" do
