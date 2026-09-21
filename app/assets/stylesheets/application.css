@@ -223,6 +223,16 @@ ul.user-profile li {
   box-shadow: none;
 }
 
+/* 姓・名（セイ・メイ）を横並びにする */
+.name-fields {
+  display: flex;
+  gap: 12px;
+}
+
+.name-fields input[type="text"] {
+  width: 160px;
+}
+
 .button_to {
   display: inline-block;
   margin: 0 8px 8px 0;

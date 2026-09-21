@@ -4,17 +4,36 @@
   <% if @user.errors.any? %>
     <div>
       <ul>
-        <% error_messages_in_form_order(@user, %i[name nickname age_group gender children_count email password password_confirmation]).each do |message| %>
+        <% error_messages_in_form_order(@user, %i[last_name first_name last_name_kana first_name_kana nickname age_group gender children_count email password password_confirmation]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :name do %>名前 <span class="required">*必須</span><% end %>
-    <%= f.text_field :name %>
+  <div class="name-fields">
+    <div>
+      <%= f.label :last_name do %>姓 <span class="required">*必須</span><% end %>
+      <%= f.text_field :last_name, placeholder: "山田" %>
+    </div>
+    <div>
+      <%= f.label :first_name do %>名 <span class="required">*必須</span><% end %>
+      <%= f.text_field :first_name, placeholder: "太郎" %>
+    </div>
   </div>
+
+  <div class="name-fields">
+    <div>
+      <%= f.label :last_name_kana do %>セイ <span class="required">*必須</span><% end %>
+      <%= f.text_field :last_name_kana, placeholder: "ヤマダ" %>
+    </div>
+    <div>
+      <%= f.label :first_name_kana do %>メイ <span class="required">*必須</span><% end %>
+      <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
+    </div>
+  </div>
+  <p class="field-hint">セイ・メイは全角カタカナで入力してください。</p>
+
   <div>
     <%= f.label :nickname do %>ニックネーム <span class="required">*必須</span><% end %>
     <%= f.text_field :nickname %>

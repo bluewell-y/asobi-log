@@ -1,7 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: ユーザー1
+  last_name: 山田
+  first_name: 太郎
+  last_name_kana: ヤマダ
+  first_name_kana: タロウ
   nickname: にっく1
   email: user1@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>
@@ -9,7 +12,10 @@ one:
   gender: 0
 
 two:
-  name: ユーザー2
+  last_name: 佐藤
+  first_name: 花子
+  last_name_kana: サトウ
+  first_name_kana: ハナコ
   nickname: にっく2
   email: user2@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>

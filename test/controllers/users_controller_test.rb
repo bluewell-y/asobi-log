@@ -9,7 +9,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "有効な情報で登録でき、ログイン状態になる" do
     assert_difference "User.count", 1 do
       post users_path, params: {user: {
-        name: "新規太郎",
+        last_name: "新規",
+        first_name: "太郎",
+        last_name_kana: "シンキ",
+        first_name_kana: "タロウ",
         nickname: "しんきち",
         email: "shinki@example.com",
         password: "password123",
@@ -24,12 +27,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "thirties", user.age_group
     assert_equal "male", user.gender
     assert_equal 2, user.children_count
+    assert_equal "新規", user.last_name
+    assert_equal "タロウ", user.first_name_kana
   end
 
   test "年代・性別が未入力だと登録できず、422を返す" do
     assert_no_difference "User.count" do
       post users_path, params: {user: {
-        name: "新規太郎",
+        last_name: "新規",
+        first_name: "太郎",
+        last_name_kana: "シンキ",
+        first_name_kana: "タロウ",
         nickname: "しんきち",
         email: "shinki@example.com",
         password: "password123",
@@ -41,7 +49,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "無効な情報では登録できず、422を返す" do
     assert_no_difference "User.count" do
-      post users_path, params: {user: {name: "", email: "", password: "", password_confirmation: ""}}
+      post users_path, params: {user: {last_name: "", email: "", password: "", password_confirmation: ""}}
     end
     assert_response :unprocessable_entity
   end
@@ -59,9 +67,27 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "プロフィールを更新できる" do
     login_as(users(:one))
-    patch mypage_path, params: {user: {name: "改名済み"}}
+    patch mypage_path, params: {user: {last_name: "改名", first_name: "済み", last_name_kana: "カイメイ", first_name_kana: "スミ"}}
     assert_redirected_to mypage_path
-    assert_equal "改名済み", users(:one).reload.name
+    user = users(:one).reload
+    assert_equal "改名", user.last_name
+    assert_equal "済み", user.first_name
+    assert_equal "カイメイ", user.last_name_kana
+    assert_equal "スミ", user.first_name_kana
+  end
+
+  test "姓に全角以外の文字を入れると更新できない" do
+    login_as(users(:one))
+    patch mypage_path, params: {user: {last_name: "Yamada"}}
+    assert_response :unprocessable_entity
+    assert_equal "山田", users(:one).reload.last_name
+  end
+
+  test "セイに全角カタカナ以外を入れると更新できない" do
+    login_as(users(:one))
+    patch mypage_path, params: {user: {last_name_kana: "やまだ"}}
+    assert_response :unprocessable_entity
+    assert_equal "ヤマダ", users(:one).reload.last_name_kana
   end
 
   test "年代・性別・子どもの人数を更新できる" do
@@ -82,12 +108,20 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil users(:one).reload.children_count
   end
 
+  test "姓・名・セイ・メイが未入力の既存ユーザーは、入力するまでプロフィールを更新できない" do
+    users(:one).update_columns(last_name: nil, first_name: nil, last_name_kana: nil, first_name_kana: nil)
+    login_as(users(:one))
+    patch mypage_path, params: {user: {nickname: "新にっく"}}
+    assert_response :unprocessable_entity
+    assert_not_equal "新にっく", users(:one).reload.nickname
+  end
+
   test "年代・性別が未入力の既存ユーザーは、入力するまでプロフィールを更新できない" do
     users(:one).update_columns(age_group: nil, gender: nil)
     login_as(users(:one))
-    patch mypage_path, params: {user: {name: "改名済み"}}
+    patch mypage_path, params: {user: {nickname: "新にっく"}}
     assert_response :unprocessable_entity
-    assert_not_equal "改名済み", users(:one).reload.name
+    assert_not_equal "新にっく", users(:one).reload.nickname
   end
 
   test "退会するとユーザーが削除され、ログアウトする" do

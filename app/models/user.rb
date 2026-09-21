@@ -18,6 +18,11 @@ class User < ApplicationRecord
   # 子どもの人数の上限（この値は「5人以上」として扱う）
   MAX_CHILDREN_COUNT = 5
 
+  # 姓・名：ひらがな・カタカナ・漢字のみ（ー・々・〆・〇も許可。スペースや英数字は不可）
+  NAME_FORMAT = /\A[\p{Hiragana}\p{Katakana}\p{Han}ー々〆〇]+\z/
+  # セイ・メイ：全角カタカナのみ
+  KANA_FORMAT = /\A[ァ-ヶー]+\z/
+
   has_secure_password
 
   has_many :places, dependent: :destroy
@@ -45,7 +50,12 @@ class User < ApplicationRecord
     other: 2   # その他
   }
 
-  validates :name, presence: true
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name, :first_name, format: {with: NAME_FORMAT, message: "はひらがな・カタカナ・漢字で入力してください"}, allow_blank: true
+  validates :last_name_kana, presence: true
+  validates :first_name_kana, presence: true
+  validates :last_name_kana, :first_name_kana, format: {with: KANA_FORMAT, message: "は全角カタカナで入力してください"}, allow_blank: true
   validates :nickname, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :age_group, presence: true
@@ -58,6 +68,10 @@ class User < ApplicationRecord
 
   def gender_label
     GENDER_LABELS[gender]
+  end
+
+  def full_name
+    "#{last_name} #{first_name}"
   end
 
   # 「5人以上」は5として保存しているので、表示の時だけ「以上」をつける
