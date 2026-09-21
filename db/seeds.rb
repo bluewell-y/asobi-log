@@ -7,7 +7,9 @@ user = User.first || User.create!(
   nickname: "テストくん",
   email: "test@example.com",
   password: "password123",
-  password_confirmation: "password123"
+  password_confirmation: "password123",
+  age_group: :thirties,
+  gender: :female
 )
 
 seeds_dir = Rails.root.join("db/seeds")

@@ -1,5 +1,19 @@
 <h1><%= @user.nickname %>さんの公開ページ</h1>
 
+<% if @user.age_group.present? || @user.gender.present? || @user.children_count.present? %>
+  <ul class="user-profile">
+    <% if @user.age_group.present? %>
+      <li>年代：<%= @user.age_group_label %></li>
+    <% end %>
+    <% if @user.gender.present? %>
+      <li>性別：<%= @user.gender_label %></li>
+    <% end %>
+    <% if @user.children_count.present? %>
+      <li>子どもの人数：<%= @user.children_count_label %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if logged_in? && current_user == @user %>
   <%= link_to "マイページへ", mypage_path, class: "btn" %>
 <% end %>
