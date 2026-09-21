@@ -5,9 +5,13 @@ one:
   nickname: にっく1
   email: user1@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>
-  
+  age_group: 1
+  gender: 0
+
 two:
   name: ユーザー2
   nickname: にっく2
   email: user2@example.com
   password_digest: <%= BCrypt::Password.create("password123") %>
+  age_group: 2
+  gender: 1

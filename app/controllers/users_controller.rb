@@ -47,12 +47,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :nickname, :age_group, :gender, :children_count, :email, :password, :password_confirmation)
   end
 
   def user_update_params
-    permitted = params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation)
-    permitted.reject! { |_, v| v.blank? } if permitted[:password].blank?
+    permitted = user_params
+    # パスワード欄が空のときは、パスワードだけ変更しない（他の項目は空欄も含めてそのまま受け取る）
+    permitted = permitted.except(:password, :password_confirmation) if permitted[:password].blank?
     permitted
   end
 end

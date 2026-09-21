@@ -4,7 +4,7 @@
   <% if @user.errors.any? %>
     <div>
       <ul>
-        <% error_messages_in_form_order(@user, %i[name nickname email password password_confirmation]).each do |message| %>
+        <% error_messages_in_form_order(@user, %i[name nickname age_group gender children_count email password password_confirmation]).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -19,6 +19,22 @@
     <%= f.label :nickname do %>ニックネーム <span class="required">*必須</span><% end %>
     <%= f.text_field :nickname %>
     <p class="field-hint">他の人と重複しない名前を入力してください。<br>遊び場の登録者名・口コミの投稿者名として表示されます。</p>
+  </div>
+
+  <div>
+    <%= f.label :age_group do %>年代 <span class="required">*必須</span><% end %>
+    <%= f.select :age_group, User::AGE_GROUP_LABELS.invert, {include_blank: "選択してください"} %>
+  </div>
+
+  <div>
+    <%= f.label :gender do %>性別 <span class="required">*必須</span><% end %>
+    <%= f.select :gender, User::GENDER_LABELS.invert, {include_blank: "選択してください"} %>
+  </div>
+
+  <div>
+    <%= f.label :children_count, "子どもの人数" %>
+    <%= f.select :children_count, User.children_count_options, {include_blank: "選択してください"} %>
+    <p class="field-hint">年代・性別・子どもの人数は、ユーザー公開ページに表示されます。</p>
   </div>
 
   <div>
