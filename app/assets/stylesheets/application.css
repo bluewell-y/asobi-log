@@ -200,6 +200,12 @@ button:hover,
   color: var(--alog-muted);
 }
 
+/* 一覧の見出し横の件数表示（マイページ・お気に入り一覧・行った場所一覧） */
+.list-count {
+  font-size: 13px;
+  color: var(--alog-muted);
+}
+
 .button_to {
   display: inline-block;
   margin: 0 8px 8px 0;

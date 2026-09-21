@@ -23,8 +23,6 @@ class UsersController < ApplicationController
 
   def mypage
     @places = current_user.places
-    @favorite_count = current_user.favorites.count
-    @visit_count = current_user.visits.count
   end
 
   def edit
