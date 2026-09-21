@@ -98,4 +98,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_nil session[:user_id]
   end
+
+  test "公開ページに年代・性別・子どもの人数が表示される" do
+    users(:one).update!(age_group: :forties, gender: :female, children_count: 5)
+    get user_path(users(:one))
+    assert_response :success
+    assert_includes response.body, "年代：40代"
+    assert_includes response.body, "性別：女性"
+    assert_includes response.body, "子どもの人数：5人以上"
+  end
+
+  test "公開ページでは、未入力の項目は表示されない" do
+    users(:one).update_columns(age_group: nil, gender: nil, children_count: nil)
+    get user_path(users(:one))
+    assert_response :success
+    assert_not_includes response.body, "年代："
+    assert_not_includes response.body, "性別："
+    assert_not_includes response.body, "子どもの人数："
+  end
 end

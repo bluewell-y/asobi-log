@@ -206,6 +206,23 @@ button:hover,
   color: var(--alog-muted);
 }
 
+/* ユーザー公開ページのプロフィール（年代・性別・子どもの人数）。全体を1つの白い枠にして、項目は縦に並べる */
+ul.user-profile {
+  display: block;
+  background: var(--alog-surface);
+  padding: 16px 20px;
+  border-radius: 24px;
+  box-shadow: var(--alog-shadow);
+}
+
+/* 一覧用のカード風スタイル（ul li）を、プロフィールの各項目では打ち消す */
+ul.user-profile li {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .button_to {
   display: inline-block;
   margin: 0 8px 8px 0;
