@@ -844,9 +844,9 @@ ul li a.place-card-btn:hover {
   max-width: 620px;
 } 
 
-/* 各項目のフォントを施設名(h1)と揃える（サイズは現状維持） */
+/* 詳細ページ内の各項目のフォント */
 .place-info p {
-  font-family: var(--alog-font-head);
+  font-family: var(--alog-font-body);
   font-weight: 400;
 }
 
