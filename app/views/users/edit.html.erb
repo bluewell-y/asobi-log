@@ -26,13 +26,13 @@
     <div>
       <%= f.label :last_name_kana do %>セイ <span class="required">*必須</span><% end %>
       <%= f.text_field :last_name_kana, placeholder: "ヤマダ" %>
+      <p class="field-hint">全角カタカナで入力してください。</p>
     </div>
     <div>
       <%= f.label :first_name_kana do %>メイ <span class="required">*必須</span><% end %>
       <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
     </div>
   </div>
-  <p class="field-hint">セイ・メイは全角カタカナで入力してください。</p>
 
   <div>
     <%= f.label :nickname do %>ニックネーム <span class="required">*必須</span><% end %>
