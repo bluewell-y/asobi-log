@@ -271,6 +271,11 @@ bin/rails test:system
 - Renderのデプロイ設定で、Start Commandのデフォルトが`RAILS_ENV`未設定時にdevelopmentモードで起動してしまう内容だったため、本番用に明示的に`-e production`を指定し、マイグレーションも起動前に実行するよう修正しました。
 - Rails 7.1とminitest 6系の間に互換性の問題があり、`bin/rails test`実行時にエラーが出ました。Gemfileでminitestを5系に固定することで解決しました。
 - テスト実行時、Rails生成時のデフォルトfixtureが後から追加した制約（emailの一意性、user_idの必須化）に対応しておらず、エラーになりました。DB制約を追加した際は関連するテストデータも見直す必要があると学びました。
+- CSSの詳細度（specificity）でハマりました。クラス名だけの指定（`.search-field-keyword`）よりも「要素名＋属性」の指定（`input[type="text"]`）の方が優先度が高いというルールを知らず、スタイルを上書きできない原因の切り分けに時間がかかりました。親クラスを重ねて指定する（`.search-form .search-field-keyword`）ことで、確実に優先度を上回れると学びました。
+- Flexboxで、子要素に`width: 100%`を指定しても、親のflexアイテム自体の幅が不定だとパーセント指定が計算できず効かない、という仕様にも遭遇しました。`max-width`ではなく`width`を直接指定することで解決しました。
+- System Test（Capybara + Selenium）で、Turbo（Hotwire）によるフォーム送信・リンク遷移は非同期に行われるため、クリック直後に次の操作を行うと画面遷移の完了を待たずに実行され、失敗することがありました。`assert_text`など「表示されるまで待つ」アサーションを遷移の直後に挟むことで解決しました。
+- BulletというN+1検出gemが、Active Storageの画像取得を誤って「不要な先読み」と警告することがありました。実際には必要な先読みだったため、コードを直さずBulletの除外リスト（safelist）に登録する対応を取りました。
+- 本番（Render）のデータベースはローカルのdevelopment DBとは別物で、Renderの無料プランではShell機能が使えないため、直接確認・修正するにはPostgreSQLへの外部接続（psql）が必要だと学びました。
 
 ## 今後追加したい機能
 
