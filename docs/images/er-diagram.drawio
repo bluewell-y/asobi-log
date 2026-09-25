@@ -1,50 +1,38 @@
-<mxfile>
+<mxfile host="app.diagrams.net">
   <diagram name="ER図" id="er-diagram">
-    <mxGraphModel dx="771" dy="733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="750" math="0" shadow="0">
+    <mxGraphModel dx="1478" dy="837" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="880" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="usersTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="users" vertex="1">
-          <mxGeometry height="150" width="240" x="80" y="60" as="geometry" />
+          <mxGeometry height="150" width="240" x="40" y="41" as="geometry" />
         </mxCell>
         <mxCell id="usersRow1" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
           <mxGeometry height="30" width="240" y="30" as="geometry" />
         </mxCell>
-        <mxCell id="usersRow2" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="name : string" vertex="1">
+        <mxCell id="usersRow2" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="nickname : string" vertex="1">
           <mxGeometry height="30" width="240" y="60" as="geometry" />
         </mxCell>
         <mxCell id="usersRow3" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="email : string" vertex="1">
           <mxGeometry height="30" width="240" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="usersRow4" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="password_digest : string" vertex="1">
+        <mxCell id="usersRow4" parent="usersTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="admin : boolean" vertex="1">
           <mxGeometry height="30" width="240" y="120" as="geometry" />
         </mxCell>
         <mxCell id="placesTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="places" vertex="1">
-          <mxGeometry height="240" width="280" x="560" y="60" as="geometry" />
+          <mxGeometry height="120" width="240" x="640" y="41" as="geometry" />
         </mxCell>
         <mxCell id="placesRow1" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
-          <mxGeometry height="30" width="280" y="30" as="geometry" />
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
         </mxCell>
         <mxCell id="placesRow2" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="name : string" vertex="1">
-          <mxGeometry height="30" width="280" y="60" as="geometry" />
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="placesRow3" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="address : string" vertex="1">
-          <mxGeometry height="30" width="280" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="placesRow4" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="category : integer" vertex="1">
-          <mxGeometry height="30" width="280" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="placesRow5" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="indoor_outdoor : integer" vertex="1">
-          <mxGeometry height="30" width="280" y="150" as="geometry" />
-        </mxCell>
-        <mxCell id="placesRow6" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
-          <mxGeometry height="30" width="280" y="180" as="geometry" />
-        </mxCell>
-        <mxCell id="placesRow7" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="min_age / max_age : integer" vertex="1">
-          <mxGeometry height="30" width="280" y="210" as="geometry" />
+        <mxCell id="placesRow3" parent="placesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
         </mxCell>
         <mxCell id="favoritesTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="favorites" vertex="1">
-          <mxGeometry height="120" width="240" x="80" y="360" as="geometry" />
+          <mxGeometry height="120" width="240" x="157" y="344" as="geometry" />
         </mxCell>
         <mxCell id="favoritesRow1" parent="favoritesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
           <mxGeometry height="30" width="240" y="30" as="geometry" />
@@ -55,45 +43,192 @@
         <mxCell id="favoritesRow3" parent="favoritesTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
           <mxGeometry height="30" width="240" y="90" as="geometry" />
         </mxCell>
+        <mxCell id="tagsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#b0e3e6;strokeColor=#0b8484;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="tags" vertex="1">
+          <mxGeometry height="90" width="240" x="1001" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="tagsRow1" parent="tagsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tagsRow2" parent="tagsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="name : string" vertex="1">
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="placeTagsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="place_tags" vertex="1">
+          <mxGeometry height="120" width="240" x="1001" y="41" as="geometry" />
+        </mxCell>
+        <mxCell id="placeTagsRow1" parent="placeTagsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="placeTagsRow2" parent="placeTagsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="placeTagsRow3" parent="placeTagsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="tag_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="reviews" vertex="1">
+          <mxGeometry height="150" width="240" x="40" y="639" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewsRow1" parent="reviewsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewsRow2" parent="reviewsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewsRow3" parent="reviewsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewsRow4" parent="reviewsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="rating : integer" vertex="1">
+          <mxGeometry height="30" width="240" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="visitLogsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="visit_logs" vertex="1">
+          <mxGeometry height="150" width="240" x="440" y="639" as="geometry" />
+        </mxCell>
+        <mxCell id="visitLogsRow1" parent="visitLogsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="visitLogsRow2" parent="visitLogsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="visitLogsRow3" parent="visitLogsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="visitLogsRow4" parent="visitLogsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="visited_on : date" vertex="1">
+          <mxGeometry height="30" width="240" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="deletionRequestsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="deletion_requests" vertex="1">
+          <mxGeometry height="150" width="240" x="760" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="deletionRequestsRow1" parent="deletionRequestsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="deletionRequestsRow2" parent="deletionRequestsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="deletionRequestsRow3" parent="deletionRequestsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="deletionRequestsRow4" parent="deletionRequestsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="status : integer" vertex="1">
+          <mxGeometry height="30" width="240" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeUsersPlaces" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=-0.002;entryY=0.609;entryDx=0;entryDy=0;entryPerimeter=0;" target="placesRow1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="90" as="sourcePoint" />
+            <mxPoint x="540" y="90.68" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeUsersFavorites" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0.178;entryY=-0.004;entryDx=0;entryDy=0;entryPerimeter=0;" target="favoritesTable">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="191" as="sourcePoint" />
+            <mxPoint x="200" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgePlacesFavorites" edge="1" parent="1" source="placesRow3" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.167;exitY=1.033;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.678;entryY=0.001;entryDx=0;entryDy=0;entryPerimeter=0;" target="favoritesTable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="240" />
+              <mxPoint x="320" y="240" />
+            </Array>
+            <mxPoint x="590" y="160" as="sourcePoint" />
+            <mxPoint x="319.96" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeUsersVisits" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.002;entryY=0.865;entryDx=0;entryDy=0;entryPerimeter=0;" target="visitsRow1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="120" />
+              <mxPoint x="440" y="400" />
+            </Array>
+            <mxPoint x="280.24" y="120" as="sourcePoint" />
+            <mxPoint x="540" y="366.21000000000004" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgePlacesPlaceTags" edge="1" parent="1" source="placesTable" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" target="placeTagsTable">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="878" y="82" as="sourcePoint" />
+            <mxPoint x="1078" y="82" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeTagsPlaceTags" edge="1" parent="1" source="tagsTable" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="placeTagsRow3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeUsersReviews" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.166;entryY=-0.004;entryDx=0;entryDy=0;entryPerimeter=0;" target="reviewsTable">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="191" as="sourcePoint" />
+            <mxPoint x="80" y="636" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgePlacesReviews" edge="1" parent="1" source="placesRow2" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0.001;exitY=0.644;exitDx=0;exitDy=0;exitPerimeter=0;" target="reviewsTable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="120" />
+              <mxPoint x="520" y="520" />
+              <mxPoint x="220" y="520" />
+            </Array>
+            <mxPoint x="539.04" y="120" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeUsersVisitLogs" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0.167;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="visitLogsTable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="560" />
+              <mxPoint x="480" y="560" />
+            </Array>
+            <mxPoint x="120" y="191" as="sourcePoint" />
+            <mxPoint x="482.08" y="639.5500000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgePlacesVisitLogs" edge="1" parent="1" source="placesRow3" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="visitLogsTable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="280" />
+              <mxPoint x="560" y="280" />
+            </Array>
+            <mxPoint x="633.3315985790408" y="160" as="sourcePoint" />
+            <mxPoint x="460.0030017761991" y="588" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeUsersDeletionRequests" edge="1" parent="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="160" />
+              <mxPoint x="480" y="460" />
+              <mxPoint x="600" y="460" />
+              <mxPoint x="600" y="600" />
+            </Array>
+            <mxPoint x="280" y="160" as="sourcePoint" />
+            <mxPoint x="760" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgePlacesDeletionRequests" edge="1" parent="1" source="visitsRow4" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.833;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="890" y="470" as="sourcePoint" />
+            <mxPoint x="840" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#676f7d;" value="※ 主要カラムのみ表示。詳細はREADMEの「テーブル設計」を参照" vertex="1">
+          <mxGeometry height="30" width="500" x="40" y="819" as="geometry" />
+        </mxCell>
+        <mxCell id="-YDapBQVfp21eq9pEwTU-2" edge="1" parent="1" source="placesRow3" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.83;exitY=0.992;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="800" y="160" as="sourcePoint" />
+            <mxPoint x="840" y="344" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="visitsTable" parent="1" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" value="visits" vertex="1">
-          <mxGeometry height="150" width="280" x="560" y="360" as="geometry" />
+          <mxGeometry height="150" width="240" x="640" y="344" as="geometry" />
         </mxCell>
         <mxCell id="visitsRow1" parent="visitsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="id : bigint (PK)" vertex="1">
-          <mxGeometry height="30" width="280" y="30" as="geometry" />
+          <mxGeometry height="30" width="240" y="30" as="geometry" />
         </mxCell>
         <mxCell id="visitsRow2" parent="visitsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="user_id : bigint (FK)" vertex="1">
-          <mxGeometry height="30" width="280" y="60" as="geometry" />
+          <mxGeometry height="30" width="240" y="60" as="geometry" />
         </mxCell>
         <mxCell id="visitsRow3" parent="visitsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="place_id : bigint (FK)" vertex="1">
-          <mxGeometry height="30" width="280" y="90" as="geometry" />
+          <mxGeometry height="30" width="240" y="90" as="geometry" />
         </mxCell>
         <mxCell id="visitsRow4" parent="visitsTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;whiteSpace=wrap;html=1;" value="visited_on : date" vertex="1">
-          <mxGeometry height="30" width="280" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeUsersPlaces" edge="1" parent="1" source="usersTable" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.31;entryDx=0;entryDy=0;" target="placesTable">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeUsersFavorites" edge="1" parent="1" source="usersTable" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="favoritesTable">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgePlacesVisits" edge="1" parent="1" source="placesTable" style="edgeStyle=none;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="visitsTable">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="edgeUsersVisits" edge="1" parent="1" source="usersTable" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="visitsTable">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="440" y="180" />
-              <mxPoint x="440" y="435" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edgePlacesFavorites" edge="1" parent="1" source="placesTable" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;strokeColor=#666666;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;exitX=0;exitY=0.6;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="favoritesTable">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="500" y="204" />
-              <mxPoint x="500" y="420" />
-            </Array>
-          </mxGeometry>
+          <mxGeometry height="30" width="240" y="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

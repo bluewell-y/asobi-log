@@ -42,13 +42,21 @@
 | 機能 | 内容 |
 |---|---|
 | 会員登録・ログイン・ログアウト | `bcrypt`によるパスワードのハッシュ化、`session`によるログイン状態の管理 |
-| 遊び場のCRUD | 一覧・詳細の閲覧、登録・編集・削除（本人のみ編集・削除可） |
-| 検索・絞り込み | キーワード（名前・説明文）、カテゴリ、屋内/屋外、対象年齢での絞り込み。複数条件の組み合わせに対応 |
+| プロフィール | 氏名（姓・名・フリガナ）、ニックネーム、年代、性別、子どもの人数を登録。年代・性別・子どもの人数はユーザー公開ページにも表示 |
+| 遊び場のCRUD | 一覧・詳細の閲覧、登録・編集はログインユーザーなら誰でも可能。削除は運営管理者の承認制（下記参照） |
+| 検索・絞り込み | キーワード（名前・説明文）、カテゴリ、屋内/屋外、対象年齢、都道府県/市区町村、駐車場、設備タグでの絞り込み。複数条件の組み合わせに対応 |
+| 設備タグ | 「ベビーカーOK」「授乳室あり」などのタグを複数登録・絞り込みに利用できる |
 | お気に入り機能 | 気になる遊び場をお気に入り登録し、一覧で確認できる |
 | 「行った」記録 | 実際に訪問した遊び場を記録し、一覧で振り返れる |
+| 訪問記録（日記） | 同じ遊び場に複数回、天気・満足度・同行者・メモ・写真（最大3枚）付きで記録できる |
+| 口コミ機能 | 星評価とコメントを投稿。低評価（星2つ以下）はコメント必須 |
+| 遊び場削除の承認フロー | 削除は即時実行せず、ログインユーザーが理由を添えて申請し、運営管理者が承認（削除実行）・却下できる |
+| ユーザー公開ページ | ニックネーム・登録した遊び場・投稿した口コミ・年代/性別/子どもの人数（入力時のみ）を公開するプロフィールページ |
+| OGP画像＋SNSシェア | 遊び場詳細ページにOGPタグを設定し、X・LINEへのシェアボタンを設置 |
 | マイページ | 件数サマリー・自分が登録した遊び場一覧の表示、プロフィール編集、退会 |
 | Basic認証 | 本番環境全体をID・パスワードで保護（開発途中のため） |
-| 自動テスト | Minitestによるモデルの基本的なバリデーション・認証テスト |
+| N+1クエリ対策 | Bulletによる検出、Active Storageの画像取得は誤検知として除外設定 |
+| 自動テスト | Minitestによるモデル・コントローラーのテストに加え、Capybara+Seleniumを使ったSystem Test（実ブラウザでの結合テスト） |
 
 ## 使用技術
 
@@ -57,6 +65,9 @@
 - PostgreSQL 14
 - bcrypt（パスワードのハッシュ化）
 - Turbo / Stimulus（Rails標準のHotwire構成）
+- Active Storage / ImageMagick（image_processing, mini_magick）（画像アップロード・リサイズ）
+- Bullet（N+1クエリの検出）
+- Capybara / Selenium WebDriver（System Testでの実ブラウザ操作）
 - Git / GitHub（機能ごとのブランチ・Pull Requestによる開発）
 - Render（本番デプロイ先）
 - AWS（Render安定稼働後に移行予定）
@@ -71,12 +82,18 @@
 
 ### users
 
-| カラム名 | 型 | NOT NULL | 備考 |
-|---|---|---|---|
-| id | bigint | ○ | 主キー |
-| name | string | ○ | ニックネーム |
-| email | string | ○ | 一意制約あり |
-| password_digest | string | ○ | `has_secure_password`によりハッシュ化して保存 |
+| カラム名 | 型 | NOT NULL | デフォルト | 備考 |
+|---|---|---|---|---|
+| id | bigint | ○ | - | 主キー |
+| last_name / first_name | string | - | - | 姓・名（ひらがな・カタカナ・漢字のみ） |
+| last_name_kana / first_name_kana | string | - | - | セイ・メイ（全角カタカナのみ） |
+| nickname | string | ○ | - | 遊び場の登録者名・口コミの投稿者名として表示。一意制約あり |
+| email | string | ○ | - | 一意制約あり |
+| password_digest | string | ○ | - | `has_secure_password`によりハッシュ化して保存 |
+| age_group | integer | - | - | 年代のenum（teens 〜 seventies_plus） |
+| gender | integer | - | - | 性別のenum（male / female / other） |
+| children_count | integer | - | - | 子どもの人数（0〜5、5は「5人以上」） |
+| admin | boolean | ○ | false | 運営管理者かどうか |
 
 ### places
 
@@ -85,13 +102,18 @@
 | id | bigint | ○ | - | 主キー |
 | name | string | ○ | - | 遊び場名 |
 | description | text | - | - | 説明 |
-| address | string | ○ | - | 住所 |
+| prefecture / city | string | ○ | - | 都道府県・市区町村 |
+| address | string | ○ | - | 番地・建物名など |
 | category | integer | ○ | 0 | enum（park / indoor_facility / museum / aquarium_zoo / other） |
 | indoor_outdoor | integer | ○ | 0 | enum（indoor / outdoor / both） |
+| parking | integer | ○ | 0 | enum（unavailable / available） |
 | min_age / max_age | integer | - | - | 対象年齢の下限・上限 |
-| price | string | - | - | 料金 |
-| business_hours | string | - | - | 営業時間 |
+| adult_price / child_price | integer | - | - | 大人・子供料金 |
+| opening_time / closing_time | string | - | - | 営業時間の開始・終了 |
+| reviews_count | integer | ○ | 0 | 口コミ件数のカウンターキャッシュ |
 | user_id | bigint | ○ | - | 外部キー（登録したユーザー） |
+
+トップ画像・参考画像は、カラムではなくActive Storageで管理しています（`has_one_attached :cover_image` / `has_many_attached :sub_images`）。
 
 ### favorites（中間テーブル）
 
@@ -114,30 +136,92 @@
 
 `favorites`と同様に`[user_id, place_id]`に一意制約を設定しています。
 
+### tags
+
+| カラム名 | 型 | NOT NULL | 備考 |
+|---|---|---|---|
+| id | bigint | ○ | 主キー |
+| name | string | ○ | タグ名。一意制約あり |
+
+### place_tags（中間テーブル）
+
+| カラム名 | 型 | NOT NULL | 備考 |
+|---|---|---|---|
+| id | bigint | ○ | 主キー |
+| place_id | bigint | ○ | 外部キー |
+| tag_id | bigint | ○ | 外部キー |
+
+`[place_id, tag_id]`に一意制約を設定しています。
+
+### reviews（口コミ）
+
+| カラム名 | 型 | NOT NULL | 備考 |
+|---|---|---|---|
+| id | bigint | ○ | 主キー |
+| user_id | bigint | ○ | 外部キー（投稿者） |
+| place_id | bigint | ○ | 外部キー |
+| rating | integer | ○ | 評価（0〜5の6段階。0は「星なし」） |
+| comment | text | - | コメント。評価が星2つ以下の場合は必須 |
+
+### visit_logs（訪問記録）
+
+| カラム名 | 型 | NOT NULL | 備考 |
+|---|---|---|---|
+| id | bigint | ○ | 主キー |
+| user_id | bigint | ○ | 外部キー |
+| place_id | bigint | ○ | 外部キー |
+| visited_on | date | ○ | 訪問日 |
+| weather | integer | ○ | 天気のenum（sunny / cloudy / rainy） |
+| satisfaction | integer | ○ | 満足度のenum（excellent 〜 bad の5段階） |
+| companion | string | - | 同行者 |
+| memo | text | - | メモ |
+
+写真は、カラムではなくActive Storageで管理しています（`has_many_attached :photos`、最大3枚まで）。同じユーザー・同じ遊び場でも複数回記録できます。
+
+### deletion_requests（遊び場の削除申請）
+
+| カラム名 | 型 | NOT NULL | デフォルト | 備考 |
+|---|---|---|---|---|
+| id | bigint | ○ | - | 主キー |
+| place_id | bigint | ○ | - | 外部キー |
+| user_id | bigint | ○ | - | 外部キー（申請者） |
+| reason | text | ○ | - | 削除理由 |
+| status | integer | ○ | 0 | enum（pending / approved / rejected） |
+
+同じ遊び場に対して、承認待ち（pending）の申請は同時に1件までに制限しています。
+
 ### アソシエーション概要
 
-- `User has_many :places`（1人のユーザーは複数の遊び場を登録できる）
-- `User has_many :favorites` / `has_many :favorite_places, through: :favorites`（お気に入りを通じて複数の遊び場と多対多）
-- `User has_many :visits` / `has_many :visited_places, through: :visits`（訪問記録を通じて複数の遊び場と多対多）
+- `User has_many :places` / `:favorites` / `:visits` / `:reviews` / `:visit_logs` / `:deletion_requests`
+- `User has_many :favorite_places, through: :favorites` / `has_many :visited_places, through: :visits`（お気に入り・訪問記録を通じて、それぞれ複数の遊び場と多対多）
 - `Place belongs_to :user`
-- `Place has_many :favorites` / `has_many :visits`
-- `Favorite belongs_to :user` / `belongs_to :place`
-- `Visit belongs_to :user` / `belongs_to :place`
+- `Place has_many :favorites` / `:visits` / `:reviews` / `:visit_logs` / `:deletion_requests` / `:place_tags`
+- `Place has_many :tags, through: :place_tags`（設備タグと多対多）
+- `Tag has_many :places, through: :place_tags`
+- `Review belongs_to :user` / `belongs_to :place`（`place`は`counter_cache: true`で`places.reviews_count`を自動更新）
+- `VisitLog belongs_to :user` / `belongs_to :place`
+- `DeletionRequest belongs_to :user` / `belongs_to :place`
 
 ## 画面一覧
 
 | No. | 画面 | 概要 |
 |---|---|---|
-| 1 | 遊び場一覧（トップページ） | 検索フォーム＋一覧表示 |
-| 2 | 遊び場詳細 | 詳細情報、お気に入り/「行った」ボタン、編集・削除リンク（本人のみ） |
-| 3 | 遊び場登録 | ログインユーザーのみアクセス可 |
-| 4 | 遊び場編集 | 登録者本人のみアクセス可 |
-| 5 | 新規登録 | 会員登録フォーム |
-| 6 | ログイン | ログインフォーム |
-| 7 | お気に入り一覧 | ログイン中のユーザーがお気に入り登録した遊び場の一覧 |
-| 8 | 行った場所一覧 | ログイン中のユーザーが「行った」記録をした遊び場の一覧 |
-| 9 | マイページ | 件数サマリー・自分が登録した遊び場一覧 |
-| 10 | プロフィール編集 | 名前・メール・パスワードの変更、退会 |
+| 1 | 遊び場一覧（トップページ） | 検索フォーム＋一覧表示。お気に入り/行った済みマークを表示 |
+| 2 | 遊び場詳細 | 詳細情報、お気に入り/「行った」/訪問記録ボタン、口コミ一覧、シェアボタン、編集・削除申請リンク |
+| 3 | 遊び場登録・編集 | ログインユーザーなら誰でもアクセス可 |
+| 4 | 新規登録 | 会員登録フォーム（氏名・フリガナ・ニックネーム・年代・性別・子どもの人数） |
+| 5 | ログイン | ログインフォーム |
+| 6 | お気に入り一覧 | ログイン中のユーザーがお気に入り登録した遊び場の一覧 |
+| 7 | 行った場所一覧 | ログイン中のユーザーが「行った」記録をした遊び場の一覧 |
+| 8 | 訪問記録の新規作成・編集 | 訪問日・天気・満足度・同行者・メモ・写真を記録 |
+| 9 | 場所ごとの訪問記録一覧 | 特定の遊び場について、自分が記録した訪問記録の一覧 |
+| 10 | 口コミの新規作成・編集 | 星評価・コメントを投稿 |
+| 11 | 自分の口コミ一覧 | 場所をまたいだ、自分が投稿した口コミの一覧 |
+| 12 | 削除申請フォーム | 遊び場の削除を、理由を添えて申請 |
+| 13 | 管理者用の削除申請一覧 | 運営管理者のみアクセス可。申請の承認・却下 |
+| 14 | ユーザー公開ページ | ニックネーム・登録した遊び場・口コミ・年代/性別/子どもの人数（入力時のみ）を公開 |
+| 15 | マイページ | 件数サマリー・自分が登録した遊び場一覧 |
+| 16 | プロフィール編集 | 氏名・フリガナ・ニックネーム・年代・性別・子どもの人数・メール・パスワードの変更、退会 |
 
 ## 画面遷移図
 
@@ -165,6 +249,12 @@ bin/rails server
 
 `http://localhost:3000` にアクセスして動作を確認できます。事前にPostgreSQLがローカルで起動している必要があります（`brew services start postgresql@14` など）。
 
+画像のアップロード・リサイズにImageMagickを使用しているため、ローカルにインストールされていない場合は別途インストールが必要です（`brew install imagemagick` など）。
+
+System Test（実ブラウザでの結合テスト）を実行する場合は、Google Chromeがローカルにインストールされている必要があります。
+```bash
+bin/rails test:system
+
 ## 工夫した点
 
 - パスワードは`has_secure_password`（bcrypt）でハッシュ化し、平文で保存しないようにしています。
@@ -181,13 +271,20 @@ bin/rails server
 - Renderのデプロイ設定で、Start Commandのデフォルトが`RAILS_ENV`未設定時にdevelopmentモードで起動してしまう内容だったため、本番用に明示的に`-e production`を指定し、マイグレーションも起動前に実行するよう修正しました。
 - Rails 7.1とminitest 6系の間に互換性の問題があり、`bin/rails test`実行時にエラーが出ました。Gemfileでminitestを5系に固定することで解決しました。
 - テスト実行時、Rails生成時のデフォルトfixtureが後から追加した制約（emailの一意性、user_idの必須化）に対応しておらず、エラーになりました。DB制約を追加した際は関連するテストデータも見直す必要があると学びました。
+- CSSの詳細度（specificity）でハマりました。クラス名だけの指定（`.search-field-keyword`）よりも「要素名＋属性」の指定（`input[type="text"]`）の方が優先度が高いというルールを知らず、スタイルを上書きできない原因の切り分けに時間がかかりました。親クラスを重ねて指定する（`.search-form .search-field-keyword`）ことで、確実に優先度を上回れると学びました。
+- Flexboxで、子要素に`width: 100%`を指定しても、親のflexアイテム自体の幅が不定だとパーセント指定が計算できず効かない、という仕様にも遭遇しました。`max-width`ではなく`width`を直接指定することで解決しました。
+- System Test（Capybara + Selenium）で、Turbo（Hotwire）によるフォーム送信・リンク遷移は非同期に行われるため、クリック直後に次の操作を行うと画面遷移の完了を待たずに実行され、失敗することがありました。`assert_text`など「表示されるまで待つ」アサーションを遷移の直後に挟むことで解決しました。
+- BulletというN+1検出gemが、Active Storageの画像取得を誤って「不要な先読み」と警告することがありました。実際には必要な先読みだったため、コードを直さずBulletの除外リスト（safelist）に登録する対応を取りました。
+- 本番（Render）のデータベースはローカルのdevelopment DBとは別物で、Renderの無料プランではShell機能が使えないため、直接確認・修正するにはPostgreSQLへの外部接続（psql）が必要だと学びました。
 
 ## 今後追加したい機能
 
-- 写真アップロード
-- 評価・感想（レビュー）機能
-- 地図表示（Google Maps API連携）
-- 「今日のおすすめ」のランダム表示
+- System TestのCI（GitHub Actions）への組み込み
+- 管理者権限の画面からの付与（現在はデータベースを直接操作する運用）
+- SNSログイン連携
+- お気に入り登録した遊び場の情報が更新された時の通知機能
+- 遊び場によっては、サイトから予約・チケット購入ができる機能（クレジットカード決済に対応）
+- 日付・子ども（大人）の年齢・人数を入力すると、天気や交通状況を予測して遊び場を提案してくれる機能
 
 ## URL
 
