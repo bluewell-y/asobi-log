@@ -45,3 +45,22 @@ jobs:
           bundler-cache: true
       - run: bin/rails db:prepare
       - run: bin/rails test
+
+  deploy:
+    needs: [lint, test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/asobi-log
+            git pull origin main
+            bundle install
+            bin/rails db:migrate
+            bin/rails assets:precompile
+            sudo systemctl restart asobi-log
