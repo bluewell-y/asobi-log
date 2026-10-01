@@ -35,7 +35,7 @@ btn--sm", data: { turbo_confirm: "本当に削除しますか？" } %>
     <% @visit_logs.each do |visit_log| %>
       <li>
         <%= link_to "#{visit_log.place.name}／#{visit_log.visited_on}",
-edit_place_visit_log_path(visit_log.place, visit_log) %>
+              place_visit_log_path(visit_log.place, visit_log) %>
       </li>
     <% end %>
   </ul>

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resource :favorite, only: [:create, :destroy]
     resource :visit, only: [:create, :destroy]
     resources :reviews, only: [:new, :create, :edit, :update, :destroy]
-    resources :visit_logs, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :visit_logs, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     resources :deletion_requests, only: [:new, :create]
   end
 
