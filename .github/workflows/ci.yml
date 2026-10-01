@@ -59,6 +59,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+            export RAILS_ENV=production
             cd ~/asobi-log
             git pull origin main
             bundle install
