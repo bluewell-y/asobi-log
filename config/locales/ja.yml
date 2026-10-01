@@ -56,13 +56,18 @@ ja:
       place:
         name: 遊び場名
         description: 説明
-        address: 住所
+        address: 番地・建物名など
+        prefecture: 都道府県
+        city: 市区町村
         category: カテゴリー
         indoor_outdoor: 屋内/屋外
+        parking: 駐車場
         min_age: 対象年齢（下限）
         max_age: 対象年齢（上限）
-        price: 料金
-        business_hours: 営業時間
+        adult_price: 大人料金
+        child_price: 子供料金
+        opening_time: 開店時間
+        closing_time: 閉店時間
         cover_image: トップ画像
       review:
         rating: 評価
