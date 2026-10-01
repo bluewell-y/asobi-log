@@ -57,7 +57,7 @@ class Place < ApplicationRecord
   validates :cover_image, presence: true
   validates :category, presence: true
   validates :indoor_outdoor, presence: true
-  validates :prefecture, presence: true, inclusion: {in: PREFECTURES}
+  validates :prefecture, presence: true, inclusion: {in: PREFECTURES, allow_blank: true}
   validates :city, presence: true
   validate :city_belongs_to_prefecture
   validates :parking, presence: true
