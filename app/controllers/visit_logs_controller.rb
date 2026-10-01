@@ -1,8 +1,8 @@
 class VisitLogsController < ApplicationController
   before_action :require_login
-  before_action :set_place, only: [:index, :new, :create, :edit, :update, :destroy, :remove_photo]
-  before_action :set_visit_log, only: [:edit, :update, :destroy, :remove_photo]
-  before_action :require_author, only: [:edit, :update, :destroy, :remove_photo]
+  before_action :set_place, only: [:index, :show, :new, :create, :edit, :update, :destroy, :remove_photo]
+  before_action :set_visit_log, only: [:show, :edit, :update, :destroy, :remove_photo]
+  before_action :require_author, only: [:show, :edit, :update, :destroy, :remove_photo]
 
   def index
     @visit_logs = if @place
@@ -10,6 +10,9 @@ class VisitLogsController < ApplicationController
     else
       current_user.visit_logs.includes(:place).order(visited_on: :desc)
     end
+  end
+
+  def show
   end
 
   def new
