@@ -58,6 +58,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
             cd ~/asobi-log
             git pull origin main
             bundle install
