@@ -1,13 +1,7 @@
 <%= form_with model: @place, multipart: true do |f| %>
-  <% if @place.errors.any? %>
-    <div>
-      <ul>
-        <% error_messages_in_form_order(@place, %i[name cover_image sub_images prefecture city address category indoor_outdoor parking min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div id="place-form-errors">
+    <%= render "form_errors", place: @place %>
+  </div>
 
   <div>
     <%= f.label :name do %>遊び場名 <span class="required">*必須</span><% end %>
@@ -16,12 +10,29 @@
 
   <div>
     <%= f.label :cover_image do %>トップ画像 <span class="required">*必須</span><% end %>
-    <%= f.file_field :cover_image, accept: "image/*" %>
+    <%= f.file_field :cover_image, accept: "image/*", data: { image_preview_target: "coverInput", action: "change->image-preview#updateCover" } %>
+    <div data-image-preview-target="coverPreview">
+      <% if local_assigns[:existing_cover_image]&.attached? %>
+        <%= image_tag local_assigns[:existing_cover_image].variant(resize_to_fill: [200, 120]) %>
+      <% end %>
+    </div>
   </div>
 
   <div>
     <%= f.label :sub_images, "参考画像（複数可）" %>
     <%= f.file_field :sub_images, multiple: true, accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#update" } %>
+    <div class="place-gallery" data-image-preview-target="gallery">
+      <% local_assigns[:existing_sub_images]&.each do |sub_image| %>
+        <div class="sub-image-item">
+          <%= image_tag sub_image.variant(resize_to_fill: [90, 90]) %>
+          <%= button_to "×", remove_sub_image_path(@place, sub_image.id),
+                method: :delete,
+                form_class: "sub-image-delete",
+                class: "sub-image-delete-btn",
+                data: { turbo_confirm: "この画像を削除しますか？" } %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div data-controller="prefecture-city" data-prefecture-city-cities-value="<%= Place::PREFECTURES_CITIES.to_json %>">
