@@ -33,7 +33,10 @@ class PlacesController < ApplicationController
     if @place.save
       redirect_to @place, notice: "遊び場を登録しました"
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("place-form-errors", partial: "form_errors", locals: {place: @place}), status: :unprocessable_entity }
+      end
     end
   end
 
@@ -45,7 +48,10 @@ class PlacesController < ApplicationController
       attach_new_sub_images
       redirect_to @place, notice: "遊び場を更新しました"
     else
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("place-form-errors", partial: "form_errors", locals: {place: @place}), status: :unprocessable_entity }
+      end
     end
   end
 

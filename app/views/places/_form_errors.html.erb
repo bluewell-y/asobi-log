@@ -1,0 +1,7 @@
+<% if place.errors.any? %>
+  <ul>
+    <% error_messages_in_form_order(place, %i[name cover_image sub_images prefecture city address category indoor_outdoor parking min_age max_age adult_price child_price opening_time closing_time description]).each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
