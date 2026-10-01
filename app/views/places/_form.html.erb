@@ -25,11 +25,11 @@
       <% local_assigns[:existing_sub_images]&.each do |sub_image| %>
         <div class="sub-image-item">
           <%= image_tag sub_image.variant(resize_to_fill: [90, 90]) %>
-          <%= button_to "×", remove_sub_image_path(@place, sub_image.id),
-                method: :delete,
-                form_class: "sub-image-delete",
-                class: "sub-image-delete-btn",
-                data: { turbo_confirm: "この画像を削除しますか？" } %>
+          <div class="sub-image-delete">
+            <%= link_to "×", remove_sub_image_path(@place, sub_image.id),
+                  class: "sub-image-delete-btn",
+                  data: { turbo_method: :delete, turbo_confirm: "この画像を削除しますか？" } %>
+          </div>
         </div>
       <% end %>
     </div>
