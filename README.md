@@ -18,6 +18,7 @@
 - [今後追加したい機能](#今後追加したい機能)
 - [URL](#url)
 - [動作確認用アカウント](#動作確認用アカウント)
+- [自動テスト](#自動テスト)
 
 ---
 
@@ -319,3 +320,31 @@ bin/rails test:system
 | パスワード | `password123` |
 
 新規登録から任意のアカウントを作成することもできます。
+
+## 自動テスト
+
+Minitestによるモデル・コントローラーのテスト（91件）に加え、Capybara + Seleniumを使ったSystem Test（実ブラウザでの結合テスト）も用意しています。
+
+モデルの単体テストの例（`test/models/place_test.rb`）：
+
+```ruby
+test "nameが空だと保存できない" do
+  place = valid_place
+  place.name = ""
+  assert_not place.valid?
+  assert place.errors.of_kind?(:name, :blank)
+end
+
+test "cover_imageが無いと保存できない" do
+  place = Place.new(name: "テスト公園", prefecture: "東京都", city: "渋谷区", address: "1-1-1", user: users(:one))
+  assert_not place.valid?
+  assert place.errors.of_kind?(:cover_image, :blank)
+end
+```
+
+テストの実行方法：
+
+```bash
+bin/rails test              # モデル・コントローラーのテスト
+bin/rails test:system       # System Test（実ブラウザ操作、要Chrome）
+```
