@@ -18,6 +18,7 @@
 - [今後追加したい機能](#今後追加したい機能)
 - [URL](#url)
 - [動作確認用アカウント](#動作確認用アカウント)
+- [自動テスト](#自動テスト)
 
 ---
 
@@ -69,8 +70,9 @@
 - Bullet（N+1クエリの検出）
 - Capybara / Selenium WebDriver（System Testでの実ブラウザ操作）
 - Git / GitHub（機能ごとのブランチ・Pull Requestによる開発）
-- Render（本番デプロイ先）
-- AWS（Render安定稼働後に移行予定）
+- AWS EC2 / RDS（本番デプロイ先）
+- Nginx（リバースプロキシ）
+- GitHub Actions（lint・testの自動実行、mainマージ時の本番への自動デプロイ）
 
 ## ER図
 
@@ -252,8 +254,10 @@ bin/rails server
 画像のアップロード・リサイズにImageMagickを使用しているため、ローカルにインストールされていない場合は別途インストールが必要です（`brew install imagemagick` など）。
 
 System Test（実ブラウザでの結合テスト）を実行する場合は、Google Chromeがローカルにインストールされている必要があります。
+
 ```bash
 bin/rails test:system
+```
 
 ## 工夫した点
 
@@ -263,6 +267,7 @@ bin/rails test:system
 - カテゴリ・屋内外は`enum`で管理しつつ、表示用に`category_label`/`indoor_outdoor_label`メソッドを用意し、DB上は数値・コード上は名前・画面上は日本語、と役割を分離しています。
 - プロフィール更新・退会は`current_user`のみを対象にし、URLのIDに依存しない実装にすることで、他人のアカウントを誤って操作できないようにしています。
 - 開発途中の本番環境をBasic認証で保護し、機能が揃う前に検索エンジンや第三者に見られないようにしています。
+- スマートフォンでの閲覧を想定し、`@media (max-width: 600px)`で画面幅600px以下のレイアウトを個別に調整しています（一覧を1列表示に変更、検索フォームの入力欄を画面幅いっぱいに広げる、など）。画像サイズも`clamp()`関数で画面幅に応じて滑らかに可変させています。
 
 ## 苦労した点・学んだこと
 
@@ -275,7 +280,12 @@ bin/rails test:system
 - Flexboxで、子要素に`width: 100%`を指定しても、親のflexアイテム自体の幅が不定だとパーセント指定が計算できず効かない、という仕様にも遭遇しました。`max-width`ではなく`width`を直接指定することで解決しました。
 - System Test（Capybara + Selenium）で、Turbo（Hotwire）によるフォーム送信・リンク遷移は非同期に行われるため、クリック直後に次の操作を行うと画面遷移の完了を待たずに実行され、失敗することがありました。`assert_text`など「表示されるまで待つ」アサーションを遷移の直後に挟むことで解決しました。
 - BulletというN+1検出gemが、Active Storageの画像取得を誤って「不要な先読み」と警告することがありました。実際には必要な先読みだったため、コードを直さずBulletの除外リスト（safelist）に登録する対応を取りました。
-- 本番（Render）のデータベースはローカルのdevelopment DBとは別物で、Renderの無料プランではShell機能が使えないため、直接確認・修正するにはPostgreSQLへの外部接続（psql）が必要だと学びました。
+- 本番のデータベースはローカルのdevelopment DBとは別物で、直接確認・修正するにはPostgreSQLへの外部接続（psql）が必要だと学びました。当初のRenderでは無料プランでShell機能が使えずこの方法が必須でしたが、AWS移行後の現在も、RDSにEC2からのみ接続できるようセキュリティを設定しているため、同様にpsqlでの外部接続を使っています。
+- EC2のセキュリティグループ作成時、AWSが自動的に「現在アクセスしているIP」を許可するルールを追加することがあり、見落とすと想定(EC2からのみ接続許可)と異なる設定のまま運用してしまうと学びました。リソース作成直後は、自動生成されたルールの中身を必ず確認するようにしています。
+- GitHub Actionsの自動デプロイは、`.bashrc`を読み込まない非ログインシェルで実行されるため、rbenvで通したはずのRubyのパスや`RAILS_ENV`が引き継がれず、`bundle install`やマイグレーションがサイレントに失敗する（かつ全体としては「成功」と表示される）不具合に遭遇しました。自動化スクリプトでは、対話シェルの設定に頼らず環境変数を明示することの重要性を学びました。
+- Nginxのデフォルト設定では、アップロードできるファイルサイズの上限が1MBに制限されており、画像付きフォームの送信がRailsに届く前に`413 Request Entity Too Large`で拒否されていました。`client_max_body_size`を明示的に緩和する必要があると学びました。
+- `button_to`（内部的に`<form>`を生成する）を別の`form_with`の中に配置してしまい、HTML上不正な「フォームの入れ子」状態になった結果、レイアウト崩れとフォーム送信の不具合が同時に発生しました。複雑なフォームを組む際は、生成される実際のHTML構造を意識する必要があると学びました。
+- EC2のパブリックIPアドレスは、インスタンスを「停止→起動」すると変わってしまう仕様のため、Elastic IPで固定する必要があると学びました。
 
 ## 今後追加したい機能
 
@@ -288,7 +298,7 @@ bin/rails test:system
 
 ## URL
 
-- 本番環境（Basic認証あり）：https://asobi-log.onrender.com
+- 本番環境（Basic認証あり）：http://57.182.108.123
 - リポジトリ：https://github.com/bluewell-y/asobi-log
 
 ## 動作確認用アカウント
@@ -310,3 +320,31 @@ bin/rails test:system
 | パスワード | `password123` |
 
 新規登録から任意のアカウントを作成することもできます。
+
+## 自動テスト
+
+Minitestによるモデル・コントローラーのテスト（91件）に加え、Capybara + Seleniumを使ったSystem Test（実ブラウザでの結合テスト）も用意しています。
+
+モデルの単体テストの例（`test/models/place_test.rb`）：
+
+```ruby
+test "nameが空だと保存できない" do
+  place = valid_place
+  place.name = ""
+  assert_not place.valid?
+  assert place.errors.of_kind?(:name, :blank)
+end
+
+test "cover_imageが無いと保存できない" do
+  place = Place.new(name: "テスト公園", prefecture: "東京都", city: "渋谷区", address: "1-1-1", user: users(:one))
+  assert_not place.valid?
+  assert place.errors.of_kind?(:cover_image, :blank)
+end
+```
+
+テストの実行方法：
+
+```bash
+bin/rails test              # モデル・コントローラーのテスト
+bin/rails test:system       # System Test（実ブラウザ操作、要Chrome）
+```
