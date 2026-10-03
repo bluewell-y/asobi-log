@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get "mypage/edit", to: "users#edit", as: "edit_mypage"
   patch "mypage", to: "users#update"
   delete "mypage", to: "users#destroy"
+  get "sitemap.xml", to: "sitemaps#show", defaults: {format: "xml"}
 
   resource :session, only: [:new, :create, :destroy]
   root "places#index"
