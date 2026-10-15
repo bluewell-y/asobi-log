@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="画面遷移図" id="screen-flow">
-        <mxGraphModel dx="1842" dy="960" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="900" background="light-dark(#FFFFFF,#121212)" math="0" shadow="0">
+        <mxGraphModel dx="551" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="900" background="light-dark(#FFFFFF,#121212)" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -14,40 +14,43 @@
                     <mxGeometry height="50" width="160" x="370" y="138" as="geometry"/>
                 </mxCell>
                 <mxCell id="mypage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="マイページ" vertex="1">
-                    <mxGeometry height="50" width="160" x="370" y="509" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="370" y="548" as="geometry"/>
                 </mxCell>
                 <mxCell id="new" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="遊び場登録" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="68" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="edit" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="遊び場編集" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="138" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="110" as="geometry"/>
                 </mxCell>
                 <mxCell id="deletionnew" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="削除申請フォーム" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="217" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="180" as="geometry"/>
                 </mxCell>
                 <mxCell id="usershow" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="ユーザー公開ページ" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="278" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="250" as="geometry"/>
                 </mxCell>
                 <mxCell id="visitlognew" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="訪問記録&#xa;新規作成・編集" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="348" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="320" as="geometry"/>
                 </mxCell>
                 <mxCell id="reviewnew" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="口コミ&#xa;新規作成・編集" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="418" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="390" as="geometry"/>
                 </mxCell>
                 <mxCell id="editprofile" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="プロフィール編集" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="520" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="559" as="geometry"/>
                 </mxCell>
                 <mxCell id="favorites" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="お気に入り一覧" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="590" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="629" as="geometry"/>
                 </mxCell>
                 <mxCell id="visits" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="行った場所一覧" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="660" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="699" as="geometry"/>
                 </mxCell>
-                <mxCell id="visitlogindex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="場所ごとの&#xa;訪問記録一覧" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="730" as="geometry"/>
+                <mxCell id="7o3I0TmA9LXr7DucrdnF-2" edge="1" parent="1" source="visitlogindex" style="html=1;endArrow=block;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="7o3I0TmA9LXr7DucrdnF-1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="visitlogindex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="訪問履歴&lt;div&gt;（すべての遊び場）&lt;/div&gt;" vertex="1">
+                    <mxGeometry height="50" width="160" x="735" y="769" as="geometry"/>
                 </mxCell>
                 <mxCell id="reviewindex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="自分の口コミ一覧" vertex="1">
-                    <mxGeometry height="50" width="160" x="735" y="800" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="735" y="839" as="geometry"/>
                 </mxCell>
                 <mxCell id="adminindex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" value="管理者用&#xa;削除申請一覧" vertex="1">
                     <mxGeometry height="50" width="160" x="370" y="680" as="geometry"/>
@@ -130,8 +133,17 @@
                 <mxCell id="legend" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#676f7d;" value="緑=誰でも見られる　青=ログイン中なら誰でも&#xa;橙=未ログインのときだけ　紫=運営管理者のみ" vertex="1">
                     <mxGeometry height="40" width="240" x="40" y="609" as="geometry"/>
                 </mxCell>
+                <mxCell id="7o3I0TmA9LXr7DucrdnF-4" edge="1" parent="1" source="show" style="html=1;endArrow=block;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="7o3I0TmA9LXr7DucrdnF-3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="show" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="遊び場詳細" vertex="1">
-                    <mxGeometry height="50" width="160" x="370" y="369" as="geometry"/>
+                    <mxGeometry height="50" width="160" x="370" y="341" as="geometry"/>
+                </mxCell>
+                <mxCell id="7o3I0TmA9LXr7DucrdnF-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="訪問記録詳細&lt;div&gt;（編集・削除）&lt;/div&gt;" vertex="1">
+                    <mxGeometry height="50" width="160" x="1000" y="769" as="geometry"/>
+                </mxCell>
+                <mxCell id="7o3I0TmA9LXr7DucrdnF-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="場所ごとの&lt;div&gt;訪問記録一覧&lt;/div&gt;" vertex="1">
+                    <mxGeometry height="50" width="160" x="735" y="460" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
